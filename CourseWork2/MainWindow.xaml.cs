@@ -1,5 +1,4 @@
-﻿using Azure.Messaging;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using System.Windows;
 
 namespace CourseWork2
@@ -18,7 +17,7 @@ namespace CourseWork2
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            
+
             MessageBox.Show("123");
         }
     }
