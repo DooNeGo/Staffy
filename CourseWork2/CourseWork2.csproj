@@ -10,8 +10,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\background.jpg" />
+    <None Remove="Images\key-icon.png" />
+    <None Remove="Images\logo-removebg.jpg" />
+    <None Remove="Images\logo-removebg.png" />
+    <None Remove="Images\logo.jpg" />
+    <None Remove="Images\logo1.jpg" />
+    <None Remove="Images\user-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
     <PackageReference Include="MySql.Data" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\background.jpg" />
+    <Resource Include="Images\key-icon.png" />
+    <Resource Include="Images\logo-removebg.jpg" />
+    <Resource Include="Images\logo-removebg.png" />
+    <Resource Include="Images\logo.jpg" />
+    <Resource Include="Images\logo1.jpg" />
+    <Resource Include="Images\user-icon.png" />
   </ItemGroup>
 
 </Project>
