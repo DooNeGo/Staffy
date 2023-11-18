@@ -22,8 +22,8 @@
 
         <Border CornerRadius="20"
                 Opacity="0.95"
-                Background="CornflowerBlue"
-                BorderBrush="LightBlue"
+                Background="#0C5DA5"
+                BorderBrush="#679FD2"
                 BorderThickness="5">
 
             <Grid>
@@ -41,9 +41,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="LOG IN"
-                               Foreground="LightSkyBlue"
+                               Foreground="White"
                                FontSize="10"
                                FontFamily="Montserrat"
+                               FontWeight="Medium"
                                Grid.Column="0"
                                VerticalAlignment="Center"
                                Margin="10, 0 ,0 ,0"/>
@@ -59,10 +60,10 @@
 
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="LightBlue"/>
+                                <Setter Property="Background" Value="#679FD2"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Background" Value="#408DD2"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -70,7 +71,7 @@
 
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Width="24" Height="24"
+                                <Border Width="22" Height="22"
                                         CornerRadius="10"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
@@ -91,10 +92,10 @@
 
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="DarkRed"/>
+                                <Setter Property="Background" Value="#FFC573"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="Red"/>
+                                        <Setter Property="Background" Value="#FFB040"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -102,7 +103,7 @@
 
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Width="24" Height="24"
+                                <Border Width="22" Height="22"
                                         CornerRadius="10"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
@@ -117,9 +118,46 @@
                             Grid.Row="2"
                             Orientation="Vertical"
                             Margin="0, 35, 0, 0">
+                    
                     <Image Source="/Images/logo-removebg.png"
-                           Width="150" Height="150"/>
+                           Width="100" Height="100"/>
 
+                    <TextBlock Text="STAFFY"
+                               FontSize="26"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"
+                               Foreground="White"
+                               FontWeight="Medium"/>
+
+                    <TextBlock Text="Username"
+                               FontSize="12"
+                               FontFamily="Montserrat"
+                               FontWeight="Medium"
+                               HorizontalAlignment="Left"
+                               Foreground="White"
+                               Margin="0, 35, 0, 0"/>
+
+                    <TextBox x:Name="usernameTextBox"
+                             FontSize="13"
+                             FontFamily="Montserrat"
+                             FontWeight="Medium"
+                             Foreground="White"
+                             CaretBrush="White"
+                             BorderBrush="LightBlue"
+                             SelectionBrush="LightBlue"
+                             BorderThickness="0, 0, 0, 1"
+                             Height="28"
+                             VerticalAlignment="Center"
+                             Margin="0, 5, 0, 0"
+                             Padding="20, 0, 0, 0">
+
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/user-icon.jpg"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
+                             
+                    </TextBox>
                 </StackPanel>
             </Grid>
         </Border>
