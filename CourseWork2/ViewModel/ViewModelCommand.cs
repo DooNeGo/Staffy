@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace CourseWork2.ViewModels
+namespace CourseWork2.ViewModel
 {
     internal class ViewModelCommand : ICommand
     {

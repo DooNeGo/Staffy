@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseWork2.Views"
-        xmlns:viewmodels="clr-namespace:CourseWork2.ViewModels"
-        d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
+        xmlns:viewModel="clr-namespace:CourseWork2.ViewModel"
+        xmlns:customcontrols="clr-namespace:CourseWork2.CustomControls"
+        d:DataContext="{d:DesignInstance Type=viewModel:LoginViewModel}"
         mc:Ignorable="d"
         Title="LoginView" Height="550" Width="800"
         WindowStyle="None"
@@ -14,7 +15,22 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="OnWindowMouseDown">
-    <Border CornerRadius="20">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
+    
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" 
+                 Mode="TwoWay" 
+                 Converter="{StaticResource boolToVisibilityConverter}"/>
+    </Window.Visibility>
+    
+    <Border CornerRadius="22">
         <Border.Background>
             <ImageBrush ImageSource="/Images/background.jpg"
                         Stretch="Fill"/>
@@ -22,9 +38,21 @@
 
         <Border CornerRadius="20"
                 Opacity="0.95"
-                Background="#0C5DA5"
-                BorderBrush="#679FD2"
-                BorderThickness="5">
+                BorderThickness="2">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0, 0" EndPoint="1, 1">
+                    <GradientStop Color="#689AD3" Offset="0"/>
+                    <GradientStop Color="#BB63D4" Offset="0.75"/>
+                    <GradientStop Color="#B23AD4" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0, 1" EndPoint="1, 0">
+                    <GradientStop Color="#0D56A6" Offset="0"/>
+                    <GradientStop Color="#04356C" Offset="0.8"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -51,9 +79,10 @@
 
                     <Button x:Name="minimizeButton"
                             BorderThickness="0"
-                            Content="-"
+                            Content="–"
                             FontSize="16"
                             FontFamily="Montserrat"
+                            Foreground="White"
                             Cursor="Hand"
                             Grid.Column="1"
                             Click="OnMinimizeButtonClick">
@@ -72,7 +101,7 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Width="22" Height="22"
-                                        CornerRadius="10"
+                                        CornerRadius="11"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
@@ -86,16 +115,17 @@
                             Content="X"
                             FontSize="16"
                             FontFamily="Montserrat"
+                            Foreground="White"
                             Cursor="Hand"
                             Grid.Column="2"
                             Click="OnCloseButtonClick">
 
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="#FFC573"/>
+                                <Setter Property="Background" Value="#BB63D4"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#FFB040"/>
+                                        <Setter Property="Background" Value="#B23AD4"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -104,7 +134,7 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Width="22" Height="22"
-                                        CornerRadius="10"
+                                        CornerRadius="11"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
@@ -138,26 +168,103 @@
                                Margin="0, 35, 0, 0"/>
 
                     <TextBox x:Name="usernameTextBox"
+                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              FontSize="13"
                              FontFamily="Montserrat"
                              FontWeight="Medium"
                              Foreground="White"
                              CaretBrush="White"
-                             BorderBrush="LightBlue"
-                             SelectionBrush="LightBlue"
+                             BorderBrush="White"
+                             SelectionBrush="#689AD3"
                              BorderThickness="0, 0, 0, 1"
                              Height="28"
-                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
                              Margin="0, 5, 0, 0"
-                             Padding="20, 0, 0, 0">
+                             Padding="25, 0, 0, 0">
 
                         <TextBox.Background>
-                            <ImageBrush ImageSource="/Images/user-icon.jpg"
+                            <ImageBrush ImageSource="/Images/user-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
                         </TextBox.Background>
-                             
                     </TextBox>
+
+                    <TextBlock Text="Password"
+                               FontSize="12"
+                               FontFamily="Montserrat"
+                               FontWeight="Medium"
+                               HorizontalAlignment="Left"
+                               Foreground="White"
+                               Margin="0, 15, 0, 0"/>
+
+                    <customcontrols:BindablePasswordBox
+                        Height="28"
+                        Password="{Binding Password,
+                                           UpdateSourceTrigger=PropertyChanged,
+                                           Mode=TwoWay}"
+                        Margin="0, 5, 0, 0"/>
+
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="#FF9A00"
+                               FontSize="12"
+                               FontFamily="Montserrat"
+                               Margin="0, 10, 0, 0"
+                               TextWrapping="Wrap"/>
+
+                    <Button x:Name="logInButton"
+                            Content="LOG IN"
+                            Command="{Binding LoginCommand}"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Foreground="White"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Margin="0, 50, 0, 0">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#679FD2"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#408DD2"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0, 15, 0, 0">
+                        
+                        <TextBlock Text="Forgot password?"
+                               FontSize="12"
+                               FontFamily="Montserrat"
+                               FontWeight="Medium"
+                               HorizontalAlignment="Left"
+                               Foreground="White"/>
+
+                        <TextBlock Text="Reset"
+                               FontSize="12"
+                               FontFamily="Montserrat"
+                               FontWeight="Medium"
+                               HorizontalAlignment="Left"
+                               Foreground="White"
+                               Margin="5, 0, 0, 0"/>
+                    </StackPanel>
+
                 </StackPanel>
             </Grid>
         </Border>

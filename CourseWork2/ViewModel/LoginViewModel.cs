@@ -1,12 +1,13 @@
-﻿using System.Security;
+﻿using CourseWork2.Repositories;
+using System.Security;
 using System.Windows.Input;
 
-namespace CourseWork2.ViewModels
+namespace CourseWork2.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
-        private string _username;
-        private SecureString _password;
+        private string _username = string.Empty;
+        private SecureString _password = new();
         private string _errorMessage;
         private bool _isViewVisible = true;
 
@@ -22,7 +23,7 @@ namespace CourseWork2.ViewModels
             set
             {
                 _username = value;
-                OnPropertyChanged(nameof(Username));
+                InvokePropertyChanged(nameof(Username));
             }
         }
         public SecureString Password
@@ -31,7 +32,7 @@ namespace CourseWork2.ViewModels
             set
             {
                 _password = value;
-                OnPropertyChanged(nameof(Password));
+                InvokePropertyChanged(nameof(Password));
             }
         }
         public string ErrorMessage
@@ -40,7 +41,7 @@ namespace CourseWork2.ViewModels
             set
             {
                 _errorMessage = value;
-                OnPropertyChanged(nameof(ErrorMessage));
+                InvokePropertyChanged(nameof(ErrorMessage));
             }
         }
         public bool IsViewVisible
@@ -49,7 +50,7 @@ namespace CourseWork2.ViewModels
             set
             {
                 _isViewVisible = value;
-                OnPropertyChanged(nameof(IsViewVisible));
+                InvokePropertyChanged(nameof(IsViewVisible));
             }
         }
 
@@ -63,13 +64,15 @@ namespace CourseWork2.ViewModels
 
         private bool CanExecuteLoginCommand(object obj)
         {
-            return !string.IsNullOrWhiteSpace(Username) && Username.Length >= 3
-                && Password is not null && Password.Length >= 3;
+            return !string.IsNullOrWhiteSpace(Username)
+                && !string.IsNullOrWhiteSpace(Password.ToString())
+                && Username.Length >= 3
+                && Password.Length >= 3;
         }
 
         private void ExecuteLoginCommand(object obj)
         {
-            throw new NotImplementedException();
+            new UserRepository().AuthenticateUserAsync(new System.Net.NetworkCredential(Username, Password));
         }
 
         private void ExecuteRecoverPasswordCommand(string username, string email)

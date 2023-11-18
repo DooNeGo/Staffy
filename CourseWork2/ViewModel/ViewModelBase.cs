@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 
-namespace CourseWork2.ViewModels
+namespace CourseWork2.ViewModel
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void OnPropertyChanged(string propertyName)
+        public void InvokePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
