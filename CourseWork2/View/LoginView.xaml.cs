@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace CourseWork2.Views
+namespace CourseWork2.View
 {
     /// <summary>
     /// Логика взаимодействия для LoginView.xaml

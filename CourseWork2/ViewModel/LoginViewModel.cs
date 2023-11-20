@@ -78,17 +78,17 @@ namespace CourseWork2.ViewModel
             {
                 UserRepository repositiory = new();
                 _loginTask = repositiory.AuthenticateUserAsync(new System.Net.NetworkCredential(Username, Password));
-            }
+                Task.Factory.StartNew(() =>
+                {
+                    if (_loginTask.IsFaulted)
+                        ErrorMessage = "Connection error";
 
-            if (!_loginTask.IsCompletedSuccessfully
-                || _loginTask.IsCompletedSuccessfully
-                && _loginTask.Result is false)
-            {
-                ErrorMessage = "Wrong Login or Password";
-            }
-            else
-            {
-
+                    if (_loginTask.IsCompleted &&
+                        _loginTask.Result is false)
+                    {
+                        ErrorMessage = "Wrong Login or Password";
+                    }
+                });
             }
         }
 
