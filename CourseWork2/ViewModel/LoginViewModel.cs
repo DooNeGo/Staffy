@@ -8,8 +8,10 @@ namespace CourseWork2.ViewModel
     {
         private string _username = string.Empty;
         private SecureString _password = new();
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
         private bool _isViewVisible = true;
+
+        private Task<bool>? _loginTask;
 
         public LoginViewModel()
         {
@@ -72,7 +74,22 @@ namespace CourseWork2.ViewModel
 
         private void ExecuteLoginCommand(object obj)
         {
-            new UserRepository().AuthenticateUserAsync(new System.Net.NetworkCredential(Username, Password));
+            if (_loginTask is null)
+            {
+                UserRepository repositiory = new();
+                _loginTask = repositiory.AuthenticateUserAsync(new System.Net.NetworkCredential(Username, Password));
+            }
+
+            if (!_loginTask.IsCompletedSuccessfully
+                || _loginTask.IsCompletedSuccessfully
+                && _loginTask.Result is false)
+            {
+                ErrorMessage = "Wrong Login or Password";
+            }
+            else
+            {
+
+            }
         }
 
         private void ExecuteRecoverPasswordCommand(string username, string email)
