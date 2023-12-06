@@ -10,7 +10,7 @@ namespace CourseWork2.CustomControls
     public partial class BindablePasswordBox : UserControl
     {
         public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.Register("Password", typeof(SecureString), typeof(BindablePasswordBox));
+            DependencyProperty.Register(nameof(Password), typeof(SecureString), typeof(BindablePasswordBox));
 
         public BindablePasswordBox()
         {
