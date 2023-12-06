@@ -1,5 +1,6 @@
 ﻿using CourseWork2.Model;
 using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Net;
 
 namespace CourseWork2.Repositories
@@ -9,16 +10,14 @@ namespace CourseWork2.Repositories
         public async Task<bool> AuthenticateUserAsync(NetworkCredential credential)
         {
             using SqlConnection connection = GetConnection();
-
             await connection.OpenAsync();
-            var info = connection.Database;
+            using SqlCommand command = connection.CreateCommand();
 
+            command.CommandText = "SELECT * FROM Users WHERE Username=@username and [Password]=@password";
+            command.Parameters.Add("username", SqlDbType.NVarChar).Value = credential.UserName;
+            command.Parameters.Add("password", SqlDbType.NVarChar).Value = credential.Password;
 
-            return false;
-            //using SqlCommand command = connection.CreateCommand();
-
-            //command.CommandText = "select all from [User] where username=@username and password";
-
+            return await command.ExecuteScalarAsync() is not null;
         }
 
         public async Task Add(UserModel user)

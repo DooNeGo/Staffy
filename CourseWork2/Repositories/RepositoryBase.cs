@@ -8,7 +8,7 @@ namespace CourseWork2.Repositories
 
         public RepositoryBase()
         {
-            _connectionString = "SERVER=(localdb)\\mssqllocaldb;DATABASE=master;Trusted_Connection=true;";
+            _connectionString = "SERVER=(localdb)\\mssqllocaldb;DATABASE=CourseWorkDB;Trusted_Connection=true;";
         }
 
         protected SqlConnection GetConnection()

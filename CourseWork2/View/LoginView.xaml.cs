@@ -3,9 +3,6 @@ using System.Windows.Input;
 
 namespace CourseWork2.View
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginView.xaml
-    /// </summary>
     public partial class LoginView : Window
     {
         public LoginView()
@@ -13,7 +10,7 @@ namespace CourseWork2.View
             InitializeComponent();
         }
 
-        private void OnWindowMouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton is MouseButtonState.Pressed)
             {
@@ -21,12 +18,12 @@ namespace CourseWork2.View
             }
         }
 
-        private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

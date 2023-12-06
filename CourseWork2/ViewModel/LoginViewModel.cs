@@ -1,5 +1,8 @@
-﻿using CourseWork2.Repositories;
+﻿using CourseWork2.Model;
+using CourseWork2.Repositories;
+using System.Net;
 using System.Security;
+using System.Security.Principal;
 using System.Windows.Input;
 
 namespace CourseWork2.ViewModel
@@ -8,15 +11,16 @@ namespace CourseWork2.ViewModel
     {
         private string _username = string.Empty;
         private SecureString _password = new();
-        private string _errorMessage = string.Empty;
+        private string _errorMessage;
         private bool _isViewVisible = true;
 
-        private Task<bool>? _loginTask;
+        private readonly IUserRepository _userRepository;
 
         public LoginViewModel()
         {
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
+            _userRepository = new UserRepository();
         }
 
         public string Username
@@ -67,28 +71,21 @@ namespace CourseWork2.ViewModel
         private bool CanExecuteLoginCommand(object obj)
         {
             return !string.IsNullOrWhiteSpace(Username)
-                && !string.IsNullOrWhiteSpace(Password.ToString())
                 && Username.Length >= 3
                 && Password.Length >= 3;
         }
 
-        private void ExecuteLoginCommand(object obj)
+        private async void ExecuteLoginCommand(object obj)
         {
-            if (_loginTask is null)
+            bool result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
+            if (result)
             {
-                UserRepository repositiory = new();
-                _loginTask = repositiory.AuthenticateUserAsync(new System.Net.NetworkCredential(Username, Password));
-                Task.Factory.StartNew(() =>
-                {
-                    if (_loginTask.IsFaulted)
-                        ErrorMessage = "Connection error";
-
-                    if (_loginTask.IsCompleted &&
-                        _loginTask.Result is false)
-                    {
-                        ErrorMessage = "Wrong Login or Password";
-                    }
-                });
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+                IsViewVisible = false;
+            }
+            else
+            {
+                ErrorMessage = "Invalid Username or Password";
             }
         }
 
