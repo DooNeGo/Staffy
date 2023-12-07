@@ -1,38 +1,37 @@
 ﻿using System.Windows.Input;
 
-namespace CourseWork2.ViewModel
+namespace CourseWork2.ViewModel;
+
+internal class ViewModelCommand : ICommand
 {
-    internal class ViewModelCommand : ICommand
+    private readonly Predicate<object>? _canExecuteAction;
+    private readonly Action<object>?    _executeAction;
+
+    public ViewModelCommand(Action<object> executeAction)
     {
-        private readonly Action<object>? _executeAction;
-        private readonly Predicate<object>? _canExecuteAction;
+        _executeAction    = executeAction;
+        _canExecuteAction = null;
+    }
 
-        public ViewModelCommand(Action<object> executeAction)
-        {
-            _executeAction = executeAction;
-            _canExecuteAction = null;
-        }
+    public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
+    {
+        _executeAction    = executeAction;
+        _canExecuteAction = canExecuteAction;
+    }
 
-        public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
-        {
-            _executeAction = executeAction;
-            _canExecuteAction = canExecuteAction;
-        }
+    public event EventHandler? CanExecuteChanged
+    {
+        add => CommandManager.RequerySuggested += value;
+        remove => CommandManager.RequerySuggested -= value;
+    }
 
-        public event EventHandler? CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
+    public bool CanExecute(object? parameter)
+    {
+        return _canExecuteAction is null || _canExecuteAction(parameter);
+    }
 
-        public bool CanExecute(object? parameter)
-        {
-            return _canExecuteAction is null || _canExecuteAction(parameter);
-        }
-
-        public void Execute(object? parameter)
-        {
-            _executeAction?.Invoke(parameter);
-        }
+    public void Execute(object? parameter)
+    {
+        _executeAction?.Invoke(parameter);
     }
 }

@@ -1,19 +1,13 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using MySql.Data.MySqlClient;
 
-namespace CourseWork2.Repositories
+namespace CourseWork2.Repositories;
+
+public abstract class RepositoryBase
 {
-    public abstract class RepositoryBase
+    private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=root;Pwd=562389;";
+    
+    protected static MySqlConnection GetConnection()
     {
-        private readonly string _connectionString;
-
-        public RepositoryBase()
-        {
-            _connectionString = "SERVER=(localdb)\\mssqllocaldb;DATABASE=CourseWorkDB;Trusted_Connection=true;";
-        }
-
-        protected SqlConnection GetConnection()
-        {
-            return new SqlConnection(_connectionString);
-        }
+        return new MySqlConnection(ConnectionString);
     }
 }

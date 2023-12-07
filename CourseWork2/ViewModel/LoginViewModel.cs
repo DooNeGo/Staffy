@@ -1,97 +1,98 @@
-﻿using CourseWork2.Model;
-using CourseWork2.Repositories;
-using System.Net;
+﻿using System.Net;
 using System.Security;
 using System.Security.Principal;
 using System.Windows.Input;
+using CourseWork2.Model;
+using CourseWork2.Repositories;
 
-namespace CourseWork2.ViewModel
+namespace CourseWork2.ViewModel;
+
+public class LoginViewModel : ViewModelBase
 {
-    public class LoginViewModel : ViewModelBase
+    private readonly IUserRepository _userRepository;
+    private          string          _errorMessage;
+    private          bool            _isViewVisible = true;
+    private          SecureString    _password      = new();
+    private          string          _username      = string.Empty;
+
+    public LoginViewModel()
     {
-        private string _username = string.Empty;
-        private SecureString _password = new();
-        private string _errorMessage;
-        private bool _isViewVisible = true;
+        LoginCommand           = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+        RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
+        _userRepository        = new UserRepository();
+    }
 
-        private readonly IUserRepository _userRepository;
-
-        public LoginViewModel()
+    public string Username
+    {
+        get => _username;
+        set
         {
-            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
-            _userRepository = new UserRepository();
+            _username = value;
+            InvokePropertyChanged(nameof(Username));
         }
+    }
 
-        public string Username
+    public SecureString Password
+    {
+        get => _password;
+        set
         {
-            get => _username;
-            set
-            {
-                _username = value;
-                InvokePropertyChanged(nameof(Username));
-            }
+            _password = value;
+            InvokePropertyChanged(nameof(Password));
         }
-        public SecureString Password
+    }
+
+    public string ErrorMessage
+    {
+        get => _errorMessage;
+        set
         {
-            get => _password;
-            set
-            {
-                _password = value;
-                InvokePropertyChanged(nameof(Password));
-            }
+            _errorMessage = value;
+            InvokePropertyChanged(nameof(ErrorMessage));
         }
-        public string ErrorMessage
+    }
+
+    public bool IsViewVisible
+    {
+        get => _isViewVisible;
+        set
         {
-            get => _errorMessage;
-            set
-            {
-                _errorMessage = value;
-                InvokePropertyChanged(nameof(ErrorMessage));
-            }
+            _isViewVisible = value;
+            InvokePropertyChanged(nameof(IsViewVisible));
         }
-        public bool IsViewVisible
+    }
+
+    public ICommand LoginCommand { get; }
+
+    public ICommand RecoverPasswordCommand { get; }
+
+    public ICommand ShowPasswordCommand { get; }
+
+    public ICommand RememberPasswordCommand { get; }
+
+    private bool CanExecuteLoginCommand(object obj)
+    {
+        return !string.IsNullOrWhiteSpace(Username)
+               && Username.Length >= 3
+               && Password.Length >= 3;
+    }
+
+    private async void ExecuteLoginCommand(object obj)
+    {
+        bool result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
+        if (result)
         {
-            get => _isViewVisible;
-            set
-            {
-                _isViewVisible = value;
-                InvokePropertyChanged(nameof(IsViewVisible));
-            }
+            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+            IsViewVisible           = false;
         }
-
-        public ICommand LoginCommand { get; }
-
-        public ICommand RecoverPasswordCommand { get; }
-
-        public ICommand ShowPasswordCommand { get; }
-
-        public ICommand RememberPasswordCommand { get; }
-
-        private bool CanExecuteLoginCommand(object obj)
+        else
         {
-            return !string.IsNullOrWhiteSpace(Username)
-                && Username.Length >= 3
-                && Password.Length >= 3;
+            ErrorMessage = "Invalid Username or Password";
         }
+    }
 
-        private async void ExecuteLoginCommand(object obj)
-        {
-            bool result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
-            if (result)
-            {
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-                IsViewVisible = false;
-            }
-            else
-            {
-                ErrorMessage = "Invalid Username or Password";
-            }
-        }
-
-        private void ExecuteRecoverPasswordCommand(string username, string email)
-        {
-            throw new NotImplementedException();
-        }
+    private void ExecuteRecoverPasswordCommand(string username, string email)
+    {
+        throw new NotImplementedException();
     }
 }

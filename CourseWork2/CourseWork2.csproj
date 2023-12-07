@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-	<ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>3c2e84e1-0723-4e1d-9694-e20e783ff896</UserSecretsId>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>3c2e84e1-0723-4e1d-9694-e20e783ff896</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <Resource Include="Images\background.jpg"/>
+        <Resource Include="Images\key-icon.png"/>
+        <Resource Include="Images\logo-removebg.png"/>
+        <Resource Include="Images\logo1.jpg"/>
+        <Resource Include="Images\user-icon.png"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Images\background.jpg" />
-    <Resource Include="Images\key-icon.png" />
-    <Resource Include="Images\logo-removebg.png" />
-    <Resource Include="Images\logo1.jpg" />
-    <Resource Include="Images\user-icon.png" />
-  </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="MySql.Data" Version="8.2.0" />
+      <PackageReference Include="MySql.Simple" Version="5.3.5" />
+    </ItemGroup>
 
 </Project>
