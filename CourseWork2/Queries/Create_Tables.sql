@@ -51,8 +51,17 @@ CREATE TABLE IF NOT EXISTS Firedworkers
 
 CREATE TABLE IF NOT EXISTS Retiredworkers
 (
-    Workerid   INT   NOT NULL UNIQUE,
-    Retiredate DATE  NOT NULL,
-    Pension    FLOAT NOT NULL,
+    Workerid   INT            NOT NULL UNIQUE,
+    Retiredate DATE           NOT NULL,
+    Pension    DECIMAL(20, 4) NOT NULL,
     FOREIGN KEY (Workerid) REFERENCES Workers (Id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Users
+(
+    Id       INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Username VARCHAR(100) NOT NULL UNIQUE,
+    Password VARCHAR(100) NOT NULL,
+    Email    VARCHAR(100) NOT NULL,
+    Role     VARCHAR(20)  NOT NULL
 );

@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Button x:Key="CloseButton"
+            BorderThickness="0"
+            Content="X"
+            FontSize="16"
+            FontFamily="Montserrat"
+            Foreground="{StaticResource FontMainColor}"
+            Cursor="Hand">
+
+        <Button.Style>
+            <Style TargetType="Button">
+                <Setter Property="Background"
+                        Value="{StaticResource CloseButtonColor1}" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
+                             Value="True">
+                        <Setter Property="Background"
+                                Value="{StaticResource CloseButtonColor2}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Button.Style>
+
+        <Button.Template>
+            <ControlTemplate TargetType="Button">
+                <Border Width="22"
+                        Height="22"
+                        CornerRadius="11"
+                        Background="{TemplateBinding Background}">
+                    <ContentPresenter VerticalAlignment="Center"
+                                      HorizontalAlignment="Center" />
+                </Border>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
+</ResourceDictionary>

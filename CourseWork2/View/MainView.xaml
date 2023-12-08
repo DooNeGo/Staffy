@@ -3,9 +3,60 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:CourseWork2.ViewModel"
         mc:Ignorable="d"
         Title="MainView"
         Height="450"
-        Width="800">
-    <Grid />
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Window.DataContext>
+        <viewModel:LoginViewModel />
+    </Window.DataContext>
+
+    <Border CornerRadius="20"
+            BorderThickness="2">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0, 0"
+                                 EndPoint="1, 1">
+                <GradientStop Color="{StaticResource BorderColor1}"
+                              Offset="0" />
+                <GradientStop Color="{StaticResource BorderColor2}"
+                              Offset="0.7" />
+                <GradientStop Color="{StaticResource BorderColor3}"
+                              Offset="1" />
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    CornerRadius="10, 0, 0, 10">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0, 0.5"
+                                         EndPoint="1, 1">
+                        <GradientStop Color="{StaticResource PrimaryBackColor1}"
+                                      Offset="0" />
+                        <GradientStop Color="{StaticResource PrimaryBackColor2}"
+                                      Offset="0.8" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Border Grid.Column="1"
+                    CornerRadius="0, 10, 10, 0">
+                <Border.Background>
+
+                </Border.Background>
+
+            </Border>
+        </Grid>
+    </Border>
+
 </Window>

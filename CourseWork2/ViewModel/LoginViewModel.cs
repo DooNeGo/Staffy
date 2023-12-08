@@ -10,10 +10,11 @@ namespace CourseWork2.ViewModel;
 public class LoginViewModel : ViewModelBase
 {
     private readonly IUserRepository _userRepository;
-    private          string          _errorMessage;
-    private          bool            _isViewVisible = true;
-    private          SecureString    _password      = new();
-    private          string          _username      = string.Empty;
+
+    private string       _errorMessage;
+    private bool         _isViewVisible = true;
+    private SecureString _password      = new();
+    private string       _username      = string.Empty;
 
     public LoginViewModel()
     {
@@ -21,6 +22,8 @@ public class LoginViewModel : ViewModelBase
         RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
         _userRepository        = new UserRepository();
     }
+    
+    public event Action? LoginSuccess;
 
     public string Username
     {
@@ -82,8 +85,9 @@ public class LoginViewModel : ViewModelBase
         bool result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
         if (result)
         {
-            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-            IsViewVisible           = false;
+            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null); //TODO Learn this
+            //IsViewVisible           = false;
+            LoginSuccess?.Invoke();
         }
         else
         {

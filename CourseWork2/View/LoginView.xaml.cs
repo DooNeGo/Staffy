@@ -12,7 +12,8 @@ public partial class LoginView : Window
 
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (e.LeftButton is MouseButtonState.Pressed) DragMove();
+        if (e.LeftButton is MouseButtonState.Pressed)
+            DragMove();
     }
 
     private void MinimizeButton_Click(object sender, RoutedEventArgs e)

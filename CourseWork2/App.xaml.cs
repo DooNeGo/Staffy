@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using CourseWork2.View;
+using CourseWork2.ViewModel;
 
 namespace CourseWork2;
 
@@ -7,16 +8,16 @@ public partial class App : Application
 {
     private void Application_Startup(object sender, StartupEventArgs e)
     {
-        Window loginView = new LoginView();
-        loginView.Show();
-        loginView.IsVisibleChanged += (s, ev) =>
-        {
-            if (loginView is not { IsVisible: false, IsEnabled: false })
-                return;
+        var mainView       = new MainView();
+        var loginView      = new LoginView();
+        var loginViewModel = (LoginViewModel)loginView.DataContext;
 
-            Window mainView = new MainView();
-            mainView.Show();
+        loginViewModel.LoginSuccess += () =>
+        {
             loginView.Close();
+            mainView.Show();
         };
+        
+        loginView.Show();
     }
 }

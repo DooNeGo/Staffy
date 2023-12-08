@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Color x:Key="PrimaryBackColor1"> #04356C </Color>
+    <Color x:Key="PrimaryBackColor2"> #0D56A6 </Color>
+
+    <Color x:Key="BorderColor1"> #689AD3 </Color>
+    <Color x:Key="BorderColor2"> #BB63D4 </Color>
+    <Color x:Key="BorderColor3"> #B23AD4 </Color>
+    
+    <Color x:Key="CloseButtonColor1"> #BB63D4 </Color>
+    <Color x:Key="CloseButtonColor2"> #B23AD4 </Color>
+
+    <SolidColorBrush x:Key="Color1"> #E9FF78 </SolidColorBrush>
+    <SolidColorBrush x:Key="Color2"> #FFAB78 </SolidColorBrush>
+    <SolidColorBrush x:Key="Color3"> #77FDFF </SolidColorBrush>
+    <SolidColorBrush x:Key="Color4"> #CB78FF </SolidColorBrush>
+
+    <SolidColorBrush x:Key="FontMainColor"> White </SolidColorBrush>
+    <SolidColorBrush x:Key="FontContrastColor"> #FFB440 </SolidColorBrush>
+    <SolidColorBrush x:Key="SelectionFontColor"> #689AD3 </SolidColorBrush>
+    
+</ResourceDictionary>
