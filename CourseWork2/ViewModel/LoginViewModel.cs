@@ -22,8 +22,6 @@ public class LoginViewModel : ViewModelBase
         RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
         _userRepository        = new UserRepository();
     }
-    
-    public event Action? LoginSuccess;
 
     public string Username
     {
@@ -72,6 +70,8 @@ public class LoginViewModel : ViewModelBase
     public ICommand ShowPasswordCommand { get; }
 
     public ICommand RememberPasswordCommand { get; }
+
+    public event Action? LoginSuccess;
 
     private bool CanExecuteLoginCommand(object obj)
     {

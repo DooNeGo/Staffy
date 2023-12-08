@@ -42,7 +42,7 @@ public class UserRepository : RepositoryBase, IUserRepository
         Task                        task       = connection.OpenAsync();
 
         command.CommandText = "SELECT * FROM Users WHERE Username=@username";
-        
+
         command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
 
         await task;

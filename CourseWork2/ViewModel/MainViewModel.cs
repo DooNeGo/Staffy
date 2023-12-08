@@ -30,7 +30,7 @@ public class MainViewModel : ViewModelBase
         _currentUser = await _userRepository.GetByUsername(Thread.CurrentPrincipal!.Identity!.Name!);
         CurrentUserAccount = new UserAccountModel
         {
-            Username = _currentUser.Username,
+            Username       = _currentUser.Username,
             ProfilePicture = null
         };
     }

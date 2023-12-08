@@ -7,11 +7,13 @@
         mc:Ignorable="d"
         Title="MainView"
         Height="450"
-        Width="800"
+        Width="900"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        ResizeMode="CanResize"
         AllowsTransparency="True"
-        Background="Transparent">
+        Background="Transparent"
+        MouseDown="MainView_OnMouseDown">
 
     <Window.DataContext>
         <viewModel:LoginViewModel />
@@ -32,27 +34,54 @@
         </Border.BorderBrush>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0"
-                    CornerRadius="10, 0, 0, 10">
+                    CornerRadius="20, 0, 0, 20">
                 <Border.Background>
-                    <LinearGradientBrush StartPoint="0, 0.5"
-                                         EndPoint="1, 1">
+                    <LinearGradientBrush StartPoint="0, 0"
+                                         EndPoint="1, 0.7">
                         <GradientStop Color="{StaticResource PrimaryBackColor1}"
                                       Offset="0" />
                         <GradientStop Color="{StaticResource PrimaryBackColor2}"
-                                      Offset="0.8" />
+                                      Offset="1" />
                     </LinearGradientBrush>
                 </Border.Background>
+                
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Height="35"
+                                Margin="15,25, 0,40">
+                        <Image Source="/Images/logo-removebg.png" Height="30" />
+                        <TextBlock Text="STAFFY"
+                                   Foreground="{StaticResource TitleFontColor}"
+                                   FontSize="20"
+                                   FontFamily="Montserrat"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0, 0, 0" />
+                    </StackPanel>
+                    
+                    <StackPanel>
+                        
+                    </StackPanel>
+                    
+                </StackPanel>
+                
             </Border>
 
             <Border Grid.Column="1"
-                    CornerRadius="0, 10, 10, 0">
+                    CornerRadius="0, 20, 20, 0">
                 <Border.Background>
-
+                    <LinearGradientBrush StartPoint="1, 0"
+                                         EndPoint="0, 1">
+                        <GradientStop Color="{StaticResource SecondaryBackColor1}"
+                                      Offset="0" />
+                        <GradientStop Color="{StaticResource SecondaryBackColor2}"
+                                      Offset="0.95" />
+                    </LinearGradientBrush>
                 </Border.Background>
 
             </Border>

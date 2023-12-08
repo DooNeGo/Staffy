@@ -6,7 +6,7 @@ namespace CourseWork2;
 
 public partial class App : Application
 {
-    private void Application_Startup(object sender, StartupEventArgs e)
+    private void App_OnStartup(object sender, StartupEventArgs e)
     {
         var mainView       = new MainView();
         var loginView      = new LoginView();
@@ -17,7 +17,7 @@ public partial class App : Application
             loginView.Close();
             mainView.Show();
         };
-        
+
         loginView.Show();
     }
 }

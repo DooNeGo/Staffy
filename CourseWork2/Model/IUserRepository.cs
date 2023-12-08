@@ -8,6 +8,6 @@ public interface IUserRepository
     public Task            Add(UserModel                           user);
     public Task            Edit(UserModel                          user);
     public Task            Remove(int                              id);
-    public Task<UserModel> GetByUsername(string username);
+    public Task<UserModel> GetByUsername(string                    username);
     IEnumerable<UserModel> GetAll();
 }
