@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace CourseWork2.View;
 
-public partial class LoginView : Window
+public partial class LoginView
 {
     public LoginView()
     {

@@ -4,7 +4,7 @@ using CourseWork2.ViewModel;
 
 namespace CourseWork2;
 
-public partial class App : Application
+public partial class App
 {
     private void App_OnStartup(object sender, StartupEventArgs e)
     {

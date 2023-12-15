@@ -10,7 +10,8 @@ public class UserRepository : RepositoryBase, IUserRepository
     {
         await using MySqlConnection connection = GetConnection();
         await using MySqlCommand    command    = connection.CreateCommand();
-        Task                        task       = connection.OpenAsync();
+
+        Task task = connection.OpenAsync();
 
         command.CommandText = "SELECT * FROM Users WHERE Username=@username and Password=@password";
         command.Parameters.Add("@username", MySqlDbType.VarChar).Value = credential.UserName;
@@ -39,7 +40,8 @@ public class UserRepository : RepositoryBase, IUserRepository
     {
         await using MySqlConnection connection = GetConnection();
         await using MySqlCommand    command    = connection.CreateCommand();
-        Task                        task       = connection.OpenAsync();
+
+        Task task = connection.OpenAsync();
 
         command.CommandText = "SELECT * FROM Users WHERE Username=@username";
 

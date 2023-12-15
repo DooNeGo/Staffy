@@ -5,8 +5,8 @@ namespace CourseWork2.ViewModel;
 public class MainViewModel : ViewModelBase
 {
     private readonly IUserRepository _userRepository;
-    private          UserModel       _currentUser;
 
+    private UserModel        _currentUser;
     private UserAccountModel _currentUserAccount;
 
     public MainViewModel(IUserRepository userRepository)

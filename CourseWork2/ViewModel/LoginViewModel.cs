@@ -11,7 +11,7 @@ public class LoginViewModel : ViewModelBase
 {
     private readonly IUserRepository _userRepository;
 
-    private string       _errorMessage;
+    private string       _errorMessage  = string.Empty;
     private bool         _isViewVisible = true;
     private SecureString _password      = new();
     private string       _username      = string.Empty;
@@ -86,7 +86,6 @@ public class LoginViewModel : ViewModelBase
         if (result)
         {
             Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null); //TODO Learn this
-            //IsViewVisible           = false;
             LoginSuccess?.Invoke();
         }
         else
