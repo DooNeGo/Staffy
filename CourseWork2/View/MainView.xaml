@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:CourseWork2.ViewModel"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="MainView"
         Height="450"
@@ -49,27 +50,36 @@
                                       Offset="1" />
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 Height="35"
                                 Margin="15,25, 0,40">
-                        <Image Source="/Images/logo-removebg.png" Height="30" />
+                        <Image Source="/Images/logo-removebg.png"
+                               Height="30" />
                         <TextBlock Text="STAFFY"
                                    Foreground="{StaticResource TitleFontColor}"
                                    FontSize="20"
-                                   FontFamily="Montserrat"
+                                   FontFamily="{StaticResource MainFont}"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
                                    Margin="10, 0, 0, 0" />
                     </StackPanel>
-                    
+
                     <StackPanel>
-                        
+                        <RadioButton Style="{StaticResource MenuButton}"
+                                     Tag="{StaticResource Color1}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Style="{StaticResource MenuButtonImage}"
+                                                 Icon="Home" />
+                                <TextBlock Style="{StaticResource MenuButtonText}"
+                                           Text="Dashboard" />
+                            </StackPanel>
+                        </RadioButton>
                     </StackPanel>
-                    
+
                 </StackPanel>
-                
+
             </Border>
 
             <Border Grid.Column="1"

@@ -4,6 +4,12 @@
              Startup="App_OnStartup">
 
     <Application.Resources>
-        <ResourceDictionary Source="Styles/UIColors.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/UIColors.xaml" />
+                <ResourceDictionary Source="Styles/Buttons.xaml" />
+                <ResourceDictionary Source="Styles/UIFonts.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

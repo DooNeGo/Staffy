@@ -1,22 +1,12 @@
 CREATE DATABASE IF NOT EXISTS courseworkdb;
 USE courseworkdb;
 
-CREATE TABLE IF NOT EXISTS companies
+CREATE TABLE IF NOT EXISTS departments
 (
     id      INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name    VARCHAR(30)  NOT NULL UNIQUE,
     address VARCHAR(100) NULL,
     phone   VARCHAR(20)  NULL
-);
-
-CREATE TABLE IF NOT EXISTS departments
-(
-    id         INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name       VARCHAR(30)  NOT NULL,
-    address    VARCHAR(100) NULL,
-    phone      VARCHAR(20)  NULL,
-    company_id INT          NOT NULL,
-    FOREIGN KEY (company_id) REFERENCES companies (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS workers
@@ -34,13 +24,14 @@ CREATE TABLE IF NOT EXISTS workers
 
 CREATE TABLE IF NOT EXISTS positions
 (
-    id       INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    position VARCHAR(100)   NOT NULL UNIQUE,
-    salary   DECIMAL(12, 2) NOT NULL
+    id     INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name   VARCHAR(100)   NOT NULL UNIQUE,
+    salary DECIMAL(12, 2) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS accepted_workers
 (
+    id            INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
     worker_id     INT            NOT NULL UNIQUE,
     accept_date   DATE           NOT NULL,
     position_id   INT            NOT NULL,
@@ -51,6 +42,7 @@ CREATE TABLE IF NOT EXISTS accepted_workers
 
 CREATE TABLE IF NOT EXISTS fired_workers
 (
+    id          INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
     worker_id   INT  NOT NULL UNIQUE,
     fire_date   DATE NOT NULL,
     fire_reason TEXT NULL,
@@ -59,6 +51,7 @@ CREATE TABLE IF NOT EXISTS fired_workers
 
 CREATE TABLE IF NOT EXISTS retired_workers
 (
+    id          INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
     worker_id   INT            NOT NULL UNIQUE,
     retire_date DATE           NOT NULL,
     pension     DECIMAL(12, 2) NOT NULL,

@@ -1,23 +1,16 @@
 ﻿USE courseworkdb;
 
-INSERT INTO companies (name, address, phone)
-VALUES ('Microsoft', 'One Microsoft Way, Redmond, WA 98052, USA', '+1-425-882-8080'),
-       ('Google', '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA', '+1-650-253-0000'),
-       ('Apple', 'One Apple Park Way, Cupertino, CA 95014, USA', '+1-408-996-1010'),
-       ('Amazon', '410 Terry Avenue North, Seattle, WA 98109, USA', '+1-206-266-1000'),
-       ('Facebook', '1 Hacker Way, Menlo Park, CA 94025, USA', '+1-650-543-4800');
-
-INSERT INTO departments (name, address, phone, company_id)
-VALUES ('Research and Development', 'Building 99, 14820 NE 36th Street, Redmond, WA 98052, USA', '+1-425-703-6214', 1),
-       ('Marketing', 'Building 17, 16011 NE 36th Way, Redmond, WA 98052, USA', '+1-425-882-8080', 1),
-       ('Engineering', '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA', '+1-650-253-0000', 2),
-       ('Sales', '345 Spear Street, San Francisco, CA 94105, USA', '+1-415-736-0000', 2),
-       ('Design', 'One Apple Park Way, Cupertino, CA 95014, USA', '+1-408-996-1010', 3),
-       ('Customer Service', '12545 Riata Vista Circle, Austin, TX 78727, USA', '+1-512-674-2000', 3),
-       ('Operations', '410 Terry Avenue North, Seattle, WA 98109, USA', '+1-206-266-1000', 4),
-       ('Finance', '2021 7th Avenue, Seattle, WA 98121, USA', '+1-206-266-1000', 4),
-       ('Product', '1 Hacker Way, Menlo Park, CA 94025, USA', '+1-650-543-4800', 5),
-       ('Legal', '1601 Willow Road, Menlo Park, CA 94025, USA', '+1-650-308-7300', 5);
+INSERT INTO departments (name, address, phone)
+VALUES ('Research and Development', 'Building 99, 14820 NE 36th Street, Redmond, WA 98052, USA', '+1-425-703-6214'),
+       ('Marketing', 'Building 17, 16011 NE 36th Way, Redmond, WA 98052, USA', '+1-425-882-8080'),
+       ('Engineering', '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA', '+1-650-253-0000'),
+       ('Sales', '345 Spear Street, San Francisco, CA 94105, USA', '+1-415-736-0000'),
+       ('Design', 'One Apple Park Way, Cupertino, CA 95014, USA', '+1-408-996-1010'),
+       ('Customer Service', '12545 Riata Vista Circle, Austin, TX 78727, USA', '+1-512-674-2000'),
+       ('Operations', '410 Terry Avenue North, Seattle, WA 98109, USA', '+1-206-266-1000'),
+       ('Finance', '2021 7th Avenue, Seattle, WA 98121, USA', '+1-206-266-1000'),
+       ('Product', '1 Hacker Way, Menlo Park, CA 94025, USA', '+1-650-543-4800'),
+       ('Legal', '1601 Willow Road, Menlo Park, CA 94025, USA', '+1-650-308-7300');
 
 INSERT INTO workers (surname, name, patronymic, gender, status, military_registration, department_id)
 VALUES ('Smith', 'John', 'Michael', 'Male', 'Accepted', TRUE, 1),
@@ -46,7 +39,7 @@ VALUES ('Smith', 'John', 'Michael', 'Male', 'Accepted', TRUE, 1),
        ('Li', 'Xiao', 'Yan', 'Female', 'Retired', FALSE, 4),
        ('Martinez', 'Juan', 'Carlos', 'Male', 'Retired', TRUE, 5);
 
-INSERT INTO positions (position, salary)
+INSERT INTO positions (name, salary)
 VALUES ('Software Engineer', 100000.00),
        ('Marketing Manager', 80000.00),
        ('Web Developer', 60000.00),

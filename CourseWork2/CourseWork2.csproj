@@ -7,6 +7,7 @@
         <UseWPF>true</UseWPF>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>3c2e84e1-0723-4e1d-9694-e20e783ff896</UserSecretsId>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,8 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9"/>
         <PackageReference Include="MySql.Data" Version="8.2.0"/>
-        <PackageReference Include="MySql.Simple" Version="5.3.5"/>
     </ItemGroup>
 
 </Project>

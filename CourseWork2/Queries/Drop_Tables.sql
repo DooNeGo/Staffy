@@ -6,4 +6,3 @@ DROP TABLE retired_workers;
 DROP TABLE positions;
 DROP TABLE workers;
 DROP TABLE departments;
-DROP TABLE companies;

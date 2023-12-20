@@ -27,7 +27,8 @@
     <SolidColorBrush x:Key="TitleFontColor"> White </SolidColorBrush>
     <SolidColorBrush x:Key="ContrastFontColor"> #FFB440 </SolidColorBrush>
     <SolidColorBrush x:Key="SelectionFontColor"> #689AD3 </SolidColorBrush>
-    
-    <SolidColorBrush x:Key="PanelActiveColor"> #FFB440 </SolidColorBrush>
+
+    <SolidColorBrush x:Key="PanelActiveColor"> #0D56A6 </SolidColorBrush>
+    <SolidColorBrush x:Key="PanelMouseOverColor"> #0D56A6 </SolidColorBrush>
 
 </ResourceDictionary>
