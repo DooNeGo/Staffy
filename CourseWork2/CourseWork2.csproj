@@ -14,7 +14,6 @@
         <Resource Include="Images\background.jpg"/>
         <Resource Include="Images\key-icon.png"/>
         <Resource Include="Images\logo-removebg.png"/>
-        <Resource Include="Images\logo1.jpg"/>
         <Resource Include="Images\user-icon.png"/>
     </ItemGroup>
 

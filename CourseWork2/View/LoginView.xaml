@@ -31,37 +31,25 @@
                  Converter="{StaticResource BoolToVisibilityConverter}" />
     </Window.Visibility>
 
-    <Border CornerRadius="22">
+    <Border CornerRadius="14">
         <Border.Background>
             <ImageBrush ImageSource="/Images/background.jpg"
-                        Stretch="Fill" />
+                        Stretch="UniformToFill" />
         </Border.Background>
 
-        <Border CornerRadius="20"
+        <Border CornerRadius="12"
                 Opacity="0.95"
-                BorderThickness="2">
-            <Border.BorderBrush>
-                <LinearGradientBrush StartPoint="0, 0"
-                                     EndPoint="1, 1">
-                    <GradientStop Color="{StaticResource BorderColor1}"
-                                  Offset="0" />
-                    <GradientStop Color="{StaticResource BorderColor2}"
-                                  Offset="0.7" />
-                    <GradientStop Color="{StaticResource BorderColor3}"
-                                  Offset="1" />
-                </LinearGradientBrush>
-            </Border.BorderBrush>
-
+                BorderThickness="1"
+                BorderBrush="{StaticResource BorderBrush}">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0, 1"
                                      EndPoint="1, 0">
-                    <GradientStop Color="{StaticResource PrimaryBackColor2}"
-                                  Offset="0" />
                     <GradientStop Color="{StaticResource PrimaryBackColor1}"
-                                  Offset="0.8" />
+                                  Offset="0" />
+                    <GradientStop Color="{StaticResource PrimaryBackColor2}"
+                                  Offset="1" />
                 </LinearGradientBrush>
             </Border.Background>
-
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -85,7 +73,8 @@
                                VerticalAlignment="Center"
                                Margin="10, 0 ,0 ,0" />
 
-                    <Button BorderThickness="0"
+                    <Button x:Name="MinimizeButton"
+                            BorderThickness="0"
                             Content="–"
                             FontSize="16"
                             FontFamily="{StaticResource MainFont}"
@@ -121,7 +110,8 @@
                         </Button.Template>
                     </Button>
 
-                    <Button BorderThickness="0"
+                    <Button x:Name="CloseButton"
+                            BorderThickness="0"
                             Content="X"
                             FontSize="16"
                             FontFamily="{StaticResource MainFont}"

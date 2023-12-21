@@ -7,7 +7,7 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="MainView"
-        Height="450"
+        Height="550"
         Width="900"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -20,19 +20,9 @@
         <viewModel:LoginViewModel />
     </Window.DataContext>
 
-    <Border CornerRadius="20"
-            BorderThickness="2">
-        <Border.BorderBrush>
-            <LinearGradientBrush StartPoint="0, 0"
-                                 EndPoint="1, 1">
-                <GradientStop Color="{StaticResource BorderColor1}"
-                              Offset="0" />
-                <GradientStop Color="{StaticResource BorderColor2}"
-                              Offset="0.7" />
-                <GradientStop Color="{StaticResource BorderColor3}"
-                              Offset="1" />
-            </LinearGradientBrush>
-        </Border.BorderBrush>
+    <Border CornerRadius="14"
+            BorderThickness="1"
+            BorderBrush="{StaticResource BorderBrush}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
@@ -40,13 +30,13 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0"
-                    CornerRadius="20, 0, 0, 20">
+                    CornerRadius="14.5, 0, 0, 14.5">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0, 0"
                                          EndPoint="1, 0.7">
-                        <GradientStop Color="{StaticResource PrimaryBackColor1}"
+                        <GradientStop Color="{StaticResource SecondaryBackColor1}"
                                       Offset="0" />
-                        <GradientStop Color="{StaticResource PrimaryBackColor2}"
+                        <GradientStop Color="{StaticResource SecondaryBackColor2}"
                                       Offset="1" />
                     </LinearGradientBrush>
                 </Border.Background>
@@ -83,14 +73,14 @@
             </Border>
 
             <Border Grid.Column="1"
-                    CornerRadius="0, 20, 20, 0">
+                    CornerRadius="0, 14.5, 14.5, 0">
                 <Border.Background>
-                    <LinearGradientBrush StartPoint="1, 0"
-                                         EndPoint="0, 1">
-                        <GradientStop Color="{StaticResource SecondaryBackColor1}"
+                    <LinearGradientBrush StartPoint="1, 1"
+                                         EndPoint="0, 0">
+                        <GradientStop Color="{StaticResource PrimaryBackColor1}"
                                       Offset="0" />
-                        <GradientStop Color="{StaticResource SecondaryBackColor2}"
-                                      Offset="0.95" />
+                        <GradientStop Color="{StaticResource PrimaryBackColor2}"
+                                      Offset="1" />
                     </LinearGradientBrush>
                 </Border.Background>
 

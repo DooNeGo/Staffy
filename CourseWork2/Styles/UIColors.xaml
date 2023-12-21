@@ -1,23 +1,23 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Color x:Key="PrimaryBackColor1"> #04356C </Color>
-    <Color x:Key="PrimaryBackColor2"> #0D56A6 </Color>
-    <Color x:Key="SecondaryBackColor1"> #04356C </Color>
-    <Color x:Key="SecondaryBackColor2"> #04356C </Color>
+    <Color x:Key="PrimaryBackColor1"> #0B2959 </Color>
+    <Color x:Key="PrimaryBackColor2"> #0B3559 </Color>
+    <Color x:Key="SecondaryBackColor1"> #124D91 </Color>
+    <Color x:Key="SecondaryBackColor2"> #0D3A6D </Color>
 
-    <Color x:Key="BorderColor1"> #689AD3 </Color>
-    <Color x:Key="BorderColor2"> #BB63D4 </Color>
-    <Color x:Key="BorderColor3"> #B23AD4 </Color>
+    <Color x:Key="BorderColor1"> #377AE6 </Color>
+    <Color x:Key="BorderColor2"> #3795E6 </Color>
+    <Color x:Key="BorderColor3"> #5C92EB </Color>
 
-    <SolidColorBrush x:Key="CloseButtonColor1"> #BB63D4 </SolidColorBrush>
-    <SolidColorBrush x:Key="CloseButtonColor2"> #B23AD4 </SolidColorBrush>
-    <SolidColorBrush x:Key="MinimizeButtonColor1"> #408DD2 </SolidColorBrush>
-    <SolidColorBrush x:Key="MinimizeButtonColor2"> #679FD2 </SolidColorBrush>
-    <SolidColorBrush x:Key="LogInButtonColor1"> #408DD2 </SolidColorBrush>
-    <SolidColorBrush x:Key="LogInButtonColor2"> #679FD2 </SolidColorBrush>
+    <SolidColorBrush x:Key="CloseButtonColor1"> #E53424 </SolidColorBrush>
+    <SolidColorBrush x:Key="CloseButtonColor2"> #C92618 </SolidColorBrush>
+    <SolidColorBrush x:Key="MinimizeButtonColor1"> #1B81DA </SolidColorBrush>
+    <SolidColorBrush x:Key="MinimizeButtonColor2"> #3795E6 </SolidColorBrush>
+    <SolidColorBrush x:Key="LogInButtonColor1"> #1B64DA </SolidColorBrush>
+    <SolidColorBrush x:Key="LogInButtonColor2"> #377AE6 </SolidColorBrush>
 
-    <SolidColorBrush x:Key="Color1"> #E9FF78 </SolidColorBrush>
+    <SolidColorBrush x:Key="Color1"> #CEEAF7 </SolidColorBrush>
     <SolidColorBrush x:Key="Color2"> #FFAB78 </SolidColorBrush>
     <SolidColorBrush x:Key="Color3"> #77FDFF </SolidColorBrush>
     <SolidColorBrush x:Key="Color4"> #CB78FF </SolidColorBrush>
@@ -25,10 +25,10 @@
     <SolidColorBrush x:Key="MainFontColor"> White </SolidColorBrush>
     <SolidColorBrush x:Key="PlainFontColor"> DarkGray </SolidColorBrush>
     <SolidColorBrush x:Key="TitleFontColor"> White </SolidColorBrush>
-    <SolidColorBrush x:Key="ContrastFontColor"> #FFB440 </SolidColorBrush>
-    <SolidColorBrush x:Key="SelectionFontColor"> #689AD3 </SolidColorBrush>
+    <SolidColorBrush x:Key="ContrastFontColor"> #DE9C3F </SolidColorBrush>
+    <SolidColorBrush x:Key="SelectionFontColor"> #4AD0E8 </SolidColorBrush>
 
-    <SolidColorBrush x:Key="PanelActiveColor"> #0D56A6 </SolidColorBrush>
-    <SolidColorBrush x:Key="PanelMouseOverColor"> #0D56A6 </SolidColorBrush>
+    <SolidColorBrush x:Key="PanelActiveColor"> #1661B6 </SolidColorBrush>
+    <SolidColorBrush x:Key="PanelMouseOverColor"> #1661B6 </SolidColorBrush>
 
 </ResourceDictionary>
