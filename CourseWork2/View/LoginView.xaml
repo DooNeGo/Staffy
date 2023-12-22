@@ -124,12 +124,12 @@
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background"
-                                        Value="{StaticResource CloseButtonColor2}" />
+                                        Value="{StaticResource CloseButtonColor1}" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver"
                                              Value="True">
                                         <Setter Property="Background"
-                                                Value="{StaticResource CloseButtonColor1}" />
+                                                Value="{StaticResource CloseButtonColor2}" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>

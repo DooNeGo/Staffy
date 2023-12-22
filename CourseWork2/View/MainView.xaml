@@ -146,9 +146,31 @@
                                 FlowDirection="RightToLeft"
                                 Background="Transparent"
                                 Margin="0, 0, 5, 0"
-                                MouseLeftButtonDown="ControlBar_OnMouseLeftButtonDown"
-                                MouseEnter="ControlBar_OnMouseEnter">
-                    
+                                MouseLeftButtonDown="ControlBar_OnMouseLeftButtonDown">
+                        <Button x:Name="CloseButton"
+                                Style="{StaticResource ControlButton}"
+                                Tag="{StaticResource CloseButtonColor2}"
+                                Click="CloseButton_OnClick">
+                            <fa:IconImage Icon="Xmark"
+                                          Style="{StaticResource ControlButtonImage}" />
+                        </Button>
+                        
+                        <Button x:Name="MaximizeButton"
+                                Style="{StaticResource ControlButton}"
+                                Tag="{StaticResource MaximizeButtonColor2}"
+                                Click="MaximizeButton_OnClick">
+                            <fa:IconImage Icon="Square"
+                                          Style="{StaticResource ControlButtonImage}" />
+                        </Button>
+                        
+                        <Button x:Name="MinimizeButton"
+                                Style="{StaticResource ControlButton}"
+                                Tag="{StaticResource MinimizeButtonColor2}"
+                                Click="MinimizeButton_OnClick">
+                            <fa:IconImage Icon="WindowMinimize"
+                                          Width="12"
+                                          Style="{StaticResource ControlButtonImage}" />
+                        </Button>
                     </StackPanel>
                 </Grid>
 
