@@ -9,15 +9,15 @@ public partial class App
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
         var mainView       = new MainView();
-        var loginView      = new LoginView();
-        var loginViewModel = (LoginViewModel)loginView.DataContext;
-
-        loginViewModel.LoginSuccess += () =>
-        {
-            loginView.Close();
+        // var loginView      = new LoginView();
+        // var loginViewModel = (LoginViewModel)loginView.DataContext;
+        //
+        // loginViewModel.LoginSuccess += () =>
+        // {
+        //     loginView.Close();
             mainView.Show();
-        };
-
-        loginView.Show();
+        // };
+        //
+        // loginView.Show();
     }
 }

@@ -18,9 +18,11 @@
     <SolidColorBrush x:Key="LogInButtonColor2"> #377AE6 </SolidColorBrush>
 
     <SolidColorBrush x:Key="Color1"> #CEEAF7 </SolidColorBrush>
-    <SolidColorBrush x:Key="Color2"> #FFAB78 </SolidColorBrush>
-    <SolidColorBrush x:Key="Color3"> #77FDFF </SolidColorBrush>
-    <SolidColorBrush x:Key="Color4"> #CB78FF </SolidColorBrush>
+    <SolidColorBrush x:Key="Color2"> #FF91AE </SolidColorBrush>
+    <SolidColorBrush x:Key="Color3"> #85E1FF </SolidColorBrush>
+    <SolidColorBrush x:Key="Color4"> #FFB05E </SolidColorBrush>
+    <SolidColorBrush x:Key="Color5"> #78FFD6 </SolidColorBrush>
+    <SolidColorBrush x:Key="Color6"> #6BFF7F </SolidColorBrush>
 
     <SolidColorBrush x:Key="MainFontColor"> White </SolidColorBrush>
     <SolidColorBrush x:Key="PlainFontColor"> DarkGray </SolidColorBrush>
@@ -29,6 +31,6 @@
     <SolidColorBrush x:Key="SelectionFontColor"> #4AD0E8 </SolidColorBrush>
 
     <SolidColorBrush x:Key="PanelActiveColor"> #1661B6 </SolidColorBrush>
-    <SolidColorBrush x:Key="PanelMouseOverColor"> #1661B6 </SolidColorBrush>
+    <SolidColorBrush x:Key="PanelMouseOverColor"> #1457A3 </SolidColorBrush>
 
 </ResourceDictionary>

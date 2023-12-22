@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:CourseWork2.ViewModel"
         xmlns:customcontrols="clr-namespace:CourseWork2.CustomControls"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         d:DataContext="{d:DesignInstance Type=viewModel:LoginViewModel}"
         mc:Ignorable="d"
         Title="LoginView"
@@ -31,13 +32,13 @@
                  Converter="{StaticResource BoolToVisibilityConverter}" />
     </Window.Visibility>
 
-    <Border CornerRadius="14">
+    <Border CornerRadius="10">
         <Border.Background>
             <ImageBrush ImageSource="/Images/background.jpg"
                         Stretch="UniformToFill" />
         </Border.Background>
 
-        <Border CornerRadius="12"
+        <Border CornerRadius="8"
                 Opacity="0.95"
                 BorderThickness="1"
                 BorderBrush="{StaticResource BorderBrush}">
