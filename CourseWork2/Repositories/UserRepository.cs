@@ -13,7 +13,7 @@ public class UserRepository : RepositoryBase, IUserRepository
 
         Task task = connection.OpenAsync();
 
-        command.CommandText = "SELECT * FROM Users WHERE Username=@username and Password=@password";
+        command.CommandText = "SELECT * FROM users WHERE username=@username and password=@password";
         command.Parameters.Add("@username", MySqlDbType.VarChar).Value = credential.UserName;
         command.Parameters.Add("@password", MySqlDbType.VarChar).Value = credential.Password;
 
@@ -43,7 +43,7 @@ public class UserRepository : RepositoryBase, IUserRepository
 
         Task task = connection.OpenAsync();
 
-        command.CommandText = "SELECT * FROM Users WHERE Username=@username";
+        command.CommandText = "SELECT * FROM users WHERE username=@username";
 
         command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
 
@@ -54,7 +54,6 @@ public class UserRepository : RepositoryBase, IUserRepository
         var user = new UserModel
         {
             Username = reader[1].ToString()!,
-            Password = string.Empty,
             Email    = reader[3].ToString()!,
             Role     = reader[4].ToString()!
         };

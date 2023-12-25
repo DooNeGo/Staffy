@@ -9,7 +9,7 @@ namespace CourseWork2.ViewModel;
 
 public class LoginViewModel : ViewModelBase
 {
-    private readonly IUserRepository _userRepository;
+    private readonly UserRepository _userRepository;
 
     private string       _errorMessage  = string.Empty;
     private bool         _isViewVisible = true;

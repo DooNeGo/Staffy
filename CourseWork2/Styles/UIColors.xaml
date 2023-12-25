@@ -13,7 +13,7 @@
     <SolidColorBrush x:Key="CloseButtonColor1"> #C92618 </SolidColorBrush>
     <SolidColorBrush x:Key="CloseButtonColor2"> #E53424 </SolidColorBrush>
     <SolidColorBrush x:Key="MaximizeButtonColor1"> #DE9C3F </SolidColorBrush>
-    <SolidColorBrush x:Key="MaximizeButtonColor2"> #DE9C3F </SolidColorBrush>
+    <SolidColorBrush x:Key="MaximizeButtonColor2"> #E4AE62 </SolidColorBrush>
     <SolidColorBrush x:Key="MinimizeButtonColor1"> #1B81DA </SolidColorBrush>
     <SolidColorBrush x:Key="MinimizeButtonColor2"> #3795E6 </SolidColorBrush>
     <SolidColorBrush x:Key="LogInButtonColor1"> #1B64DA </SolidColorBrush>

@@ -8,16 +8,17 @@ public partial class App
 {
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
-        var mainView       = new MainView();
-        // var loginView      = new LoginView();
-        // var loginViewModel = (LoginViewModel)loginView.DataContext;
-        //
-        // loginViewModel.LoginSuccess += () =>
-        // {
-        //     loginView.Close();
-            mainView.Show();
-        // };
-        //
-        // loginView.Show();
+        var mainView      = new MainView();
+        var mainViewModel = (MainViewModel)mainView.DataContext;
+
+        var loginView      = new LoginView();
+        var loginViewModel = (LoginViewModel)loginView.DataContext;
+
+        loginViewModel.LoginSuccess += mainViewModel.LoadCurrentUserModel;
+        loginViewModel.LoginSuccess += loginView.Close;
+        loginViewModel.LoginSuccess += mainView.Show;
+        loginViewModel.LoginSuccess += mainViewModel.LoadViewsData;
+
+        loginView.Show();
     }
 }

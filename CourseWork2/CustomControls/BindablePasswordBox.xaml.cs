@@ -15,7 +15,7 @@ public partial class BindablePasswordBox : UserControl
     public BindablePasswordBox()
     {
         InitializeComponent();
-        passwordBox.PasswordChanged += OnPasswordChanged;
+        PasswordBox.PasswordChanged += OnPasswordChanged;
     }
 
     public SecureString Password
@@ -26,6 +26,6 @@ public partial class BindablePasswordBox : UserControl
 
     private void OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        Password = passwordBox.SecurePassword;
+        Password = PasswordBox.SecurePassword;
     }
 }

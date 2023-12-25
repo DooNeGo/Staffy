@@ -15,6 +15,8 @@
         <Resource Include="Images\key-icon.png"/>
         <Resource Include="Images\logo-removebg.png"/>
         <Resource Include="Images\user-icon.png"/>
+        <None Remove="Images\searchWatermark.png" />
+        <Resource Include="Images\searchWatermark.png" />
     </ItemGroup>
 
     <ItemGroup>

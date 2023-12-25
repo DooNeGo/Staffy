@@ -76,9 +76,6 @@
 
                     <Button x:Name="MinimizeButton"
                             BorderThickness="0"
-                            Content="–"
-                            FontSize="16"
-                            FontFamily="{StaticResource MainFont}"
                             Foreground="{StaticResource MainFontColor}"
                             Cursor="Hand"
                             Grid.Column="1"
@@ -109,13 +106,14 @@
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
+                        
+                        <fa:IconImage Icon="WindowMinimize"
+                                      Style="{StaticResource ControlButtonImage}"
+                                      Width="12"/>
                     </Button>
 
                     <Button x:Name="CloseButton"
                             BorderThickness="0"
-                            Content="X"
-                            FontSize="16"
-                            FontFamily="{StaticResource MainFont}"
                             Foreground="{StaticResource MainFontColor}"
                             Cursor="Hand"
                             Grid.Column="2"
@@ -146,6 +144,10 @@
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
+                        
+                        <fa:IconImage Icon="Close"
+                                      Style="{StaticResource ControlButtonImage}"
+                                      Width="12"/>
                     </Button>
                 </Grid>
 
