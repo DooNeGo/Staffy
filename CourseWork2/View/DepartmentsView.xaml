@@ -124,7 +124,8 @@
                       RowStyle="{DynamicResource DataGridRowStyle}"
                       AutoGenerateColumns="False"
                       HorizontalAlignment="Center"
-                      ItemsSource="{Binding Items}">
+                      ItemsSource="{Binding Items}"
+                      SelectedItem="{Binding SelectedItem}">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id"
@@ -163,7 +164,9 @@
                                     </Button>
                                     
                                     <Button Style="{StaticResource DataGridRemoveButton}"
-                                            Margin="5 0 0 0">
+                                            x:Name="DataGridDeleteButton"
+                                            Margin="5 0 0 0"
+                                            Command="{Binding DeleteCommand}">
                                         <fa:IconImage Icon="Trash"
                                                       Style="{StaticResource DataGridButtonImage}"/>
                                     </Button>

@@ -5,7 +5,7 @@ namespace CourseWork2.Repositories;
 
 public class DepartmentRepository : RepositoryBase, IDepartmentRepository
 {
-    public Task Add(DepartmentModel  department)
+    public Task Add(DepartmentModel department)
     {
         throw new NotImplementedException();
     }
@@ -26,7 +26,8 @@ public class DepartmentRepository : RepositoryBase, IDepartmentRepository
         command.Parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32)).Value = id;
 
         await task;
-        command.ExecuteScalarAsync();
+        command.ExecuteNonQuery();
+        InvokeRepositoryChanged();
     }
     
     public async Task Remove(IEnumerable<int> id)
@@ -40,7 +41,8 @@ public class DepartmentRepository : RepositoryBase, IDepartmentRepository
         command.Parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32)).Value = id;
 
         await task;
-        command.ExecuteScalarAsync();
+        command.ExecuteNonQuery();
+        InvokeRepositoryChanged();
     }
 
     public async Task<IEnumerable<DepartmentModel>> GetAll()
