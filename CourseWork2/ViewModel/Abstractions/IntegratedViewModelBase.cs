@@ -1,4 +1,4 @@
-﻿namespace CourseWork2.ViewModel;
+﻿namespace CourseWork2.ViewModel.Abstractions;
 
 public abstract class IntegratedViewModelBase : ViewModelBase
 {

@@ -1,9 +1,9 @@
-﻿namespace CourseWork2.ViewModel;
+﻿using CourseWork2.Model;
+using CourseWork2.Repositories;
 
-public class PositionsViewModel : IntegratedViewModelBase
+namespace CourseWork2.ViewModel;
+
+public class PositionsViewModel : IntegratedViewModel<PositionRepository, PositionModel>
 {
-    public override void Load()
-    {
-        //throw new NotImplementedException();
-    }
+    
 }

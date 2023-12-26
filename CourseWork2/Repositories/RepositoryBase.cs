@@ -5,30 +5,67 @@ using MySql.Data.MySqlClient;
 
 namespace CourseWork2.Repositories;
 
-public abstract class RepositoryBase
+public abstract class RepositoryBase<T> where T : new()
 {
     private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=root;Pwd=562389;";
     public event Action? RepositoryChanged;
+    
+    protected MySqlCommand GetByIdCommand { get; init; }
+    
+    protected MySqlCommand DeleteCommand { get; init; }
+    
+    protected MySqlCommand GetAllCommand { get; init; }
+    
+    protected MySqlCommand GetAllByStringCommand { get; init; }
+    
+    public async Task<T?> GetByIdAsync(int id)
+    {
+        await using MySqlConnection connection = GetConnection();
+        await connection.OpenAsync();
+        
+        return await GetValueAsync(GetByIdCommand, connection, [id]);
+    }
+    
+    public async Task RemoveAsync(int id)
+    {
+        await using MySqlConnection connection = GetConnection();
+        await connection.OpenAsync();
+        await ExecuteCommandAsync(DeleteCommand, connection, [id]);
+    }
+    
+    public async Task<IEnumerable<T>> GetAllAsync()
+    {
+        await using MySqlConnection connection = GetConnection();
+        await connection.OpenAsync();
+        
+        return await GetAllAsync(GetAllCommand, connection, []);
+    }
+    
+    public async Task<IEnumerable<T>> GetAllByStringAsync(string text)
+    {
+        await using MySqlConnection connection = GetConnection();
+        await connection.OpenAsync();
+        
+        return await GetAllAsync(GetAllByStringCommand, connection, [text]);
+    }
 
     protected static MySqlConnection GetConnection()
     {
         return new MySqlConnection(ConnectionString);
     }
     
-    protected async Task<List<T>> GetAllAsync<T>(MySqlCommand command, MySqlConnection connection, object[] parameters)
-        where T : new()
+    protected async Task<List<T>> GetAllAsync(MySqlCommand command, MySqlConnection connection, object[] parameters)
     {
         PrepareCommand(command, connection, parameters);
-        await using DbDataReader reader = await command.ExecuteReaderAsync();
-        return GetInstancesList<T>(reader);
+        await using DbDataReader reader = command.ExecuteReader();
+        return GetInstancesList(reader);
     }
     
-    protected async Task<T?> GetValueAsync<T>(MySqlCommand command, MySqlConnection connection, object[] parameters)
-        where T : new()
+    protected async Task<T?> GetValueAsync(MySqlCommand command, MySqlConnection connection, object[] parameters)
     {
         PrepareCommand(command, connection, parameters);
         await using DbDataReader reader = await command.ExecuteReaderAsync();
-        return !await reader.ReadAsync() ? default : GetInstance<T>(reader);
+        return !await reader.ReadAsync() ? default(T?) : GetInstance(reader);
     }
 
     protected async Task<int> ExecuteCommandAsync(MySqlCommand command, MySqlConnection connection, object[] parameters)
@@ -39,7 +76,7 @@ public abstract class RepositoryBase
         return rowsNumber;
     }
 
-    private List<T> GetInstancesList<T>(DbDataReader reader) where T : new()
+    private List<T> GetInstancesList(DbDataReader reader)
     {
         Type            type        = typeof(T);
         ConstructorInfo constructor = type.GetConstructor([])!;
@@ -84,7 +121,7 @@ public abstract class RepositoryBase
         }
     }
 
-    private T GetInstance<T>(IDataRecord reader) where T : new()
+    private T GetInstance(IDataRecord reader)
     {
         Type            type        = typeof(T);
         ConstructorInfo constructor = type.GetConstructor([])!;
@@ -96,7 +133,7 @@ public abstract class RepositoryBase
         }
 
         var instance = (T)constructor.Invoke([]);
-
+        
         for (var i = 0; i < properties.Length; i++)
         {
             properties[i].SetValue(instance, reader[i]);

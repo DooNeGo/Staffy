@@ -1,9 +1,13 @@
-﻿namespace CourseWork2.ViewModel;
+﻿using CourseWork2.Model;
+using CourseWork2.Repositories;
 
-public class WorkersViewModel : IntegratedViewModelBase
+namespace CourseWork2.ViewModel;
+
+public class WorkersViewModel : IntegratedViewModel<WorkerRepository, WorkerModel>
 {
-    public override void Load()
+    protected override void UpdateItems()
     {
-        //throw new NotImplementedException();
+        base.UpdateItems();
+        //TODO: добавить еще поиск по department id
     }
 }

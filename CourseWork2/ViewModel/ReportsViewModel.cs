@@ -1,4 +1,6 @@
-﻿namespace CourseWork2.ViewModel;
+﻿using CourseWork2.ViewModel.Abstractions;
+
+namespace CourseWork2.ViewModel;
 
 public class ReportsViewModel : IntegratedViewModelBase
 {

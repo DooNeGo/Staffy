@@ -1,9 +1,10 @@
 ﻿using CourseWork2.Model;
+using CourseWork2.Repositories.Abstractions;
 using MySql.Data.MySqlClient;
 
 namespace CourseWork2.Repositories;
 
-public class DepartmentRepository : RepositoryBase, IDepartmentRepository
+public class DepartmentRepository : RepositoryBase<DepartmentModel>, IDepartmentRepository
 {
     public DepartmentRepository()
     {
@@ -15,17 +16,15 @@ public class DepartmentRepository : RepositoryBase, IDepartmentRepository
         
         GetAllCommand = new MySqlCommand("SELECT * FROM departments");
         
+        GetAllByStringCommand = new MySqlCommand("SELECT * FROM departments WHERE LOCATE(@string, name) > 0 " +
+                                                 "OR LOCATE(@string, address) > 0 OR LOCATE(@string, phone) > 0");
+        GetAllByStringCommand.Parameters.Add(new MySqlParameter("@string", MySqlDbType.VarChar));
+        
         DeleteCommand = new MySqlCommand("DELETE FROM departments WHERE id=@id");
         DeleteCommand.Parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32));
     }
-    
-    private MySqlCommand GetByIdCommand { get; }
-    
+
     private MySqlCommand GetByNameCommand { get; }
-    
-    private MySqlCommand GetAllCommand { get; }
-    
-    private MySqlCommand DeleteCommand { get; }
     
     public Task Add(DepartmentModel department)
     {
@@ -35,21 +34,6 @@ public class DepartmentRepository : RepositoryBase, IDepartmentRepository
     public Task Edit(DepartmentModel department)
     {
         throw new NotImplementedException();
-    }
-
-    public async Task RemoveAsync(DepartmentModel department)
-    {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        await ExecuteCommandAsync(DeleteCommand, connection, [department.Id]);
-    }
-
-    public async Task<DepartmentModel?> GetByIdAsync(int id)
-    {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        
-        return await GetByIdInternalAsync(id, connection);
     }
     
     public async Task<List<DepartmentModel>> GetByIdsAsync(IEnumerable<int> ids)
@@ -86,22 +70,14 @@ public class DepartmentRepository : RepositoryBase, IDepartmentRepository
         
         return await GetByNameInternalAsync(name, connection);
     }
-
-    public async Task<IEnumerable<DepartmentModel>> GetAllAsync()
-    {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        
-        return await GetAllAsync<DepartmentModel>(GetAllCommand, connection, []);
-    }
     
     private async Task<DepartmentModel?> GetByNameInternalAsync(string name, MySqlConnection connection)
     {
-        return await GetValueAsync<DepartmentModel>(GetByNameCommand, connection, [name]);
+        return await GetValueAsync(GetByNameCommand, connection, [name]);
     }
     
     private async Task<DepartmentModel?> GetByIdInternalAsync(int id, MySqlConnection connection)
     {
-        return await GetValueAsync<DepartmentModel>(GetByIdCommand, connection, [id]);
+        return await GetValueAsync(GetByIdCommand, connection, [id]);
     }
 }

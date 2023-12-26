@@ -1,11 +1,20 @@
 ﻿using System.Net;
 using CourseWork2.Model;
+using CourseWork2.Repositories.Abstractions;
 using MySql.Data.MySqlClient;
 
 namespace CourseWork2.Repositories;
 
-public class UserRepository : RepositoryBase, IUserRepository
+public class UserRepository : RepositoryBase<UserModel>, IUserRepository
 {
+    public UserRepository()
+    {
+        GetByUsernameCommand = new MySqlCommand("SELECT * FROM users WHERE username=@username");
+        GetByUsernameCommand.Parameters.Add(new MySqlParameter("@username", MySqlDbType.VarChar));
+    }
+    
+    private MySqlCommand GetByUsernameCommand { get; }
+    
     public async Task<bool> AuthenticateUserAsync(NetworkCredential credential)
     {
         await using MySqlConnection connection = GetConnection();
@@ -21,52 +30,20 @@ public class UserRepository : RepositoryBase, IUserRepository
         return command.ExecuteScalar() is not null;
     }
 
-    public async Task Add(UserModel user)
+    public async Task AddAsync(UserModel user)
     {
         throw new NotImplementedException();
     }
 
-    public async Task Edit(UserModel user)
+    public async Task EditAsync(UserModel user)
     {
         throw new NotImplementedException();
     }
 
-    public async Task Remove(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<UserModel?> GetByUsername(string username)
+    public async Task<UserModel?> GetByUsernameAsync(string username)
     {
         await using MySqlConnection connection = GetConnection();
-        await using MySqlCommand    command    = connection.CreateCommand();
-
-        Task task = connection.OpenAsync();
-
-        command.CommandText = "SELECT * FROM users WHERE username=@username";
-
-        command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
-
-        await task;
-        await using MySqlDataReader reader = command.ExecuteReader();
-
-        if (!reader.Read())
-        {
-            return null;
-        }
-
-        var user = new UserModel
-        {
-            Username = reader[1].ToString()!,
-            Email    = reader[3].ToString()!,
-            Role     = reader[4].ToString()!
-        };
-
-        return user;
-    }
-
-    public IEnumerable<UserModel> GetAll()
-    {
-        throw new NotImplementedException();
+        await connection.OpenAsync();
+        return await GetValueAsync(GetByUsernameCommand, connection, [username]);
     }
 }

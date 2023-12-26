@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace CourseWork2.ViewModel;
+namespace CourseWork2.ViewModel.Abstractions;
 
 internal class ViewModelCommand : ICommand
 {

@@ -1,6 +1,6 @@
 ﻿using CourseWork2.Model;
 
-namespace CourseWork2.Repositories;
+namespace CourseWork2.Repositories.Abstractions;
 
 public interface IDepartmentRepository
 {
@@ -8,7 +8,7 @@ public interface IDepartmentRepository
 
     public Task Edit(DepartmentModel department);
 
-    public Task RemoveAsync(DepartmentModel department);
+    public Task RemoveAsync(int id);
 
     public Task<DepartmentModel?> GetByIdAsync(int id);
 
@@ -17,4 +17,6 @@ public interface IDepartmentRepository
     public Task<DepartmentModel?> GetByNameAsync(string name);
     
     public Task<IEnumerable<DepartmentModel>> GetAllAsync();
+
+    public Task<IEnumerable<DepartmentModel>> GetAllByStringAsync(string text);
 }

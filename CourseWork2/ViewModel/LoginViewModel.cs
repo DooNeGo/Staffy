@@ -4,6 +4,7 @@ using System.Security.Principal;
 using System.Windows.Input;
 using CourseWork2.Model;
 using CourseWork2.Repositories;
+using CourseWork2.ViewModel.Abstractions;
 
 namespace CourseWork2.ViewModel;
 

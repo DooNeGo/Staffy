@@ -5,6 +5,7 @@ using System.Windows.Input;
 using CourseWork2.Model;
 using CourseWork2.Repositories;
 using CourseWork2.View;
+using CourseWork2.ViewModel.Abstractions;
 using FontAwesome.Sharp;
 
 namespace CourseWork2.ViewModel;
@@ -97,7 +98,7 @@ public class MainViewModel : ViewModelBase
     
     public async void LoadCurrentUserModel()
     {
-        _currentUser = await _userRepository.GetByUsername(Thread.CurrentPrincipal!.Identity!.Name!);
+        _currentUser = await _userRepository.GetByUsernameAsync(Thread.CurrentPrincipal!.Identity!.Name!);
         CurrentUserAccount = new UserAccountModel
         {
             Username       = _currentUser.Username,

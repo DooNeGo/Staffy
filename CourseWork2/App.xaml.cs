@@ -9,7 +9,7 @@ public partial class App
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
         var mainView      = new MainView();
-        var mainViewModel = (MainViewModel)mainView.DataContext;
+        var mainViewModel = (MainViewModel)mainView.DataContext; //TODO: Можно убрать и сделать создание после успешной авторизации
 
         var loginView      = new LoginView();
         var loginViewModel = (LoginViewModel)loginView.DataContext;

@@ -52,15 +52,16 @@
 
                 <TextBox x:Name="SearchBox"
                          TextChanged="SearchBox_OnTextChanged"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Height="24"
                          Width="300"
                          FontSize="13"
                          FontFamily="{StaticResource MainFont}"
                          FontWeight="Medium"
                          Background="{StaticResource Watermark}"
-                         Foreground="{StaticResource MainFontColor}"
-                         CaretBrush="{StaticResource MainFontColor}"
-                         BorderBrush="{StaticResource MainFontColor}"
+                         Foreground="{StaticResource MainFontColor1}"
+                         CaretBrush="{StaticResource MainFontColor1}"
+                         BorderBrush="{StaticResource MainFontColor1}"
                          BorderThickness="0, 0, 0, 1"
                          Margin="5, 5, 0, 0"
                          VerticalContentAlignment="Center"/>
@@ -68,13 +69,14 @@
             </StackPanel>
 
             <Button Grid.Column="1"
-                    Content="Search"
+                    Content="Delete"
                     FontSize="12"
                     BorderThickness="0"
-                    Foreground="{StaticResource MainFontColor}"
+                    Foreground="{StaticResource MainFontColor1}"
                     VerticalAlignment="Top"
                     Margin="10, 0, 0, 0"
-                    Style="{StaticResource MainButton}">
+                    Style="{StaticResource MainButton}"
+                    Command="{Binding DeleteCommand}">
 
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -92,10 +94,10 @@
                     Content="Add"
                     FontSize="12"
                     BorderThickness="0"
-                    Foreground="{StaticResource MainFontColor}"
+                    Foreground="{StaticResource MainFontColor1}"
                     VerticalAlignment="Top"
                     Margin="10, 0, 0, 0"
-                    Style="{StaticResource MainButton}">
+                    Style="{StaticResource DataGridAddButton}">
 
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -150,30 +152,6 @@
                                         CanUserResize="True"
                                         Width="*"
                                         Binding="{Binding Phone}"/>
-                    
-                    <DataGridTemplateColumn Header="Op"
-                                            IsReadOnly="True"
-                                            Width="Auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    
-                                    <Button Style="{StaticResource DataGridEditButton}">
-                                        <fa:IconImage Icon="Edit"
-                                                      Style="{StaticResource DataGridButtonImage}"/>
-                                    </Button>
-                                    
-                                    <Button Style="{StaticResource DataGridRemoveButton}"
-                                            x:Name="DataGridDeleteButton"
-                                            Margin="5 0 0 0">
-                                        <fa:IconImage Icon="Trash"
-                                                      Style="{StaticResource DataGridButtonImage}"/>
-                                    </Button>
-                                    
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
 
                 </DataGrid.Columns>
             </DataGrid>

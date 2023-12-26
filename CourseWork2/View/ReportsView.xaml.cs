@@ -1,4 +1,7 @@
-﻿namespace CourseWork2.View;
+﻿using System.Windows.Controls;
+using System.Windows.Media;
+
+namespace CourseWork2.View;
 
 public partial class ReportsView
 {
@@ -6,4 +9,6 @@ public partial class ReportsView
     {
         InitializeComponent();
     }
+    
+
 }
