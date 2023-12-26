@@ -12,7 +12,7 @@
              Background="Transparent">
     
     <UserControl.DataContext>
-        <viewModel:DepartmentsViewModel></viewModel:DepartmentsViewModel>
+        <viewModel:DepartmentsViewModel/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
@@ -165,8 +165,7 @@
                                     
                                     <Button Style="{StaticResource DataGridRemoveButton}"
                                             x:Name="DataGridDeleteButton"
-                                            Margin="5 0 0 0"
-                                            Command="{Binding DeleteCommand}">
+                                            Margin="5 0 0 0">
                                         <fa:IconImage Icon="Trash"
                                                       Style="{StaticResource DataGridButtonImage}"/>
                                     </Button>

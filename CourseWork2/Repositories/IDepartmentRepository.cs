@@ -8,7 +8,13 @@ public interface IDepartmentRepository
 
     public Task Edit(DepartmentModel department);
 
-    public Task Remove(int id);
+    public Task RemoveAsync(DepartmentModel department);
+
+    public Task<DepartmentModel?> GetByIdAsync(int id);
+
+    public Task<List<DepartmentModel>> GetByIdsAsync(IEnumerable<int> ids);
+
+    public Task<DepartmentModel?> GetByNameAsync(string name);
     
-    public Task<IEnumerable<DepartmentModel>> GetAll();
+    public Task<IEnumerable<DepartmentModel>> GetAllAsync();
 }

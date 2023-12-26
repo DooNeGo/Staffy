@@ -4,7 +4,7 @@ using CourseWork2.Repositories;
 
 namespace CourseWork2.ViewModel;
 
-public class DepartmentsViewModel : ViewModelBase
+public class DepartmentsViewModel : IntegratedViewModelBase
 {
     private readonly DepartmentRepository _repository;
     
@@ -17,8 +17,9 @@ public class DepartmentsViewModel : ViewModelBase
         DeleteCommand  = new ViewModelCommand(ExecuteDeleteCommand, CanExecuteDeleteCommand);
         
         _repository.RepositoryChanged += UpdateItems;
-        UpdateItems();
     }
+    
+    public ICommand DeleteCommand { get; }
     
     public DepartmentModel? SelectedItem
     {
@@ -39,19 +40,15 @@ public class DepartmentsViewModel : ViewModelBase
             InvokePropertyChanged(nameof(Items));
         }
     }
+    
+    public override void Load()
+    {
+        UpdateItems();
+    }
 
     private async void UpdateItems()
     {
-        Items = await _repository.GetAll();
-        foreach (DepartmentModel item in Items)
-        {
-            item.Delete += DeleteItem;
-        }
-    }
-
-    private void DeleteItem(DepartmentModel item)
-    {
-        _repository.Remove(item.Id);
+        Items = await _repository.GetAllAsync();
     }
 
     private bool CanExecuteDeleteCommand(object obj)
@@ -61,8 +58,6 @@ public class DepartmentsViewModel : ViewModelBase
 
     private void ExecuteDeleteCommand(object obj)
     {
-        _repository.Remove(SelectedItem!.Id);
+        _repository.RemoveAsync(SelectedItem!);
     }
-
-    public ICommand DeleteCommand { get; }
 }

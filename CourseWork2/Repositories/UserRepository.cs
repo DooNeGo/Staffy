@@ -36,7 +36,7 @@ public class UserRepository : RepositoryBase, IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<UserModel> GetByUsername(string username)
+    public async Task<UserModel?> GetByUsername(string username)
     {
         await using MySqlConnection connection = GetConnection();
         await using MySqlCommand    command    = connection.CreateCommand();
@@ -50,7 +50,11 @@ public class UserRepository : RepositoryBase, IUserRepository
         await task;
         await using MySqlDataReader reader = command.ExecuteReader();
 
-        reader.Read();
+        if (!reader.Read())
+        {
+            return null;
+        }
+
         var user = new UserModel
         {
             Username = reader[1].ToString()!,

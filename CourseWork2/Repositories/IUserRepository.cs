@@ -1,6 +1,7 @@
 ﻿using System.Net;
+using CourseWork2.Model;
 
-namespace CourseWork2.Model;
+namespace CourseWork2.Repositories;
 
 public interface IUserRepository
 {
@@ -12,7 +13,7 @@ public interface IUserRepository
 
     public Task Remove(int id);
 
-    public Task<UserModel> GetByUsername(string username);
+    public Task<UserModel?> GetByUsername(string username);
 
     IEnumerable<UserModel> GetAll();
 }

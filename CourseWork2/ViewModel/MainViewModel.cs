@@ -1,4 +1,5 @@
 ﻿using System.Collections.Frozen;
+using System.Collections.Immutable;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CourseWork2.Model;
@@ -93,6 +94,26 @@ public class MainViewModel : ViewModelBase
             InvokePropertyChanged(nameof(Icon));
         }
     }
+    
+    public async void LoadCurrentUserModel()
+    {
+        _currentUser = await _userRepository.GetByUsername(Thread.CurrentPrincipal!.Identity!.Name!);
+        CurrentUserAccount = new UserAccountModel
+        {
+            Username       = _currentUser.Username,
+            ProfilePicture = null
+        };
+    }
+
+    public void LoadViewModelsData()
+    {
+        ImmutableArray<ViewData> viewDataValues = _viewsData.Values;
+        
+        for (var i = 0; i < _viewsData.Count; i++)
+        {
+            ((IntegratedViewModelBase)viewDataValues[i].View.DataContext).Load();
+        }
+    }
 
     private void SetChildViewModelData(ViewData viewData)
     {
@@ -125,22 +146,8 @@ public class MainViewModel : ViewModelBase
     {
         SetChildViewModelData(_viewsData[typeof(ReportsView)]);
     }
-
-    public async void LoadCurrentUserModel()
-    {
-        _currentUser = await _userRepository.GetByUsername(Thread.CurrentPrincipal!.Identity!.Name!);
-        CurrentUserAccount = new UserAccountModel
-        {
-            Username       = _currentUser.Username,
-            ProfilePicture = null
-        };
-    }
-
-    public void LoadViewsData()
-    {
-    }
     
-    private readonly struct ViewData(UserControl view, string caption, IconChar icon)
+    private class ViewData(UserControl view, string caption, IconChar icon)
     {
         public UserControl View { get; } = view;
 

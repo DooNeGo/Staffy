@@ -85,7 +85,7 @@ public class LoginViewModel : ViewModelBase
         bool result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
         if (result)
         {
-            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null); //TODO Learn this
+            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
             LoginSuccess?.Invoke();
         }
         else

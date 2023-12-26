@@ -17,7 +17,7 @@ public partial class App
         loginViewModel.LoginSuccess += mainViewModel.LoadCurrentUserModel;
         loginViewModel.LoginSuccess += loginView.Close;
         loginViewModel.LoginSuccess += mainView.Show;
-        loginViewModel.LoginSuccess += mainViewModel.LoadViewsData;
+        loginViewModel.LoginSuccess += mainViewModel.LoadViewModelsData;
 
         loginView.Show();
     }
