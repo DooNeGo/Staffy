@@ -66,7 +66,7 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         UpdateItems();
     }
 
-    protected virtual async void UpdateItems()
+    private async void UpdateItems()
     {
         if (SearchText is null)
         {
@@ -74,17 +74,18 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         }
         else
         {
-            IEnumerable<TDataModel> newItems = await _repository.GetAllByStringAsync(SearchText);
-            if (int.TryParse(SearchText, out int result))
+            Items = await _repository.GetAllByStringAsync(SearchText);
+            
+            if (!int.TryParse(SearchText, out int result))
             {
-                TDataModel? item = await _repository.GetByIdAsync(result);
-                if (item is not null)
-                {
-                    newItems = newItems.Append(item);
-                }
+                return;
             }
 
-            Items = newItems;
+            TDataModel? item = await _repository.GetByIdAsync(result);
+            if (item is not null)
+            {
+                Items = Items.Append(item);
+            }
         }
     }
 

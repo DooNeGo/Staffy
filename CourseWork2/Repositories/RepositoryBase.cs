@@ -5,18 +5,18 @@ using MySql.Data.MySqlClient;
 
 namespace CourseWork2.Repositories;
 
-public abstract class RepositoryBase<T> where T : new()
+public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T : new()
 {
     private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=root;Pwd=562389;";
 
-    private readonly MySqlConnection _connection;
+    private readonly MySqlConnection _connection; //TODO: Сделать пул подключений
+
+    private bool _isDisposed;
 
     protected RepositoryBase()
     {
         _connection = new MySqlConnection(ConnectionString);
     }
-
-    public event Action? RepositoryChanged;
 
     protected MySqlCommand GetByIdCommand { get; init; }
 
@@ -25,6 +25,20 @@ public abstract class RepositoryBase<T> where T : new()
     protected MySqlCommand GetAllCommand { get; init; }
 
     protected MySqlCommand GetAllByStringCommand { get; init; }
+
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore();
+        GC.SuppressFinalize(this);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public event Action? RepositoryChanged;
 
     public async Task<T?> GetByIdAsync(int id)
     {
@@ -134,5 +148,37 @@ public abstract class RepositoryBase<T> where T : new()
         }
 
         return instance;
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!disposing || _isDisposed)
+        {
+            return;
+        }
+
+        _connection.Dispose();
+        GetByIdCommand.Dispose();
+        DeleteCommand.Dispose();
+        GetAllCommand.Dispose();
+        GetAllByStringCommand.Dispose();
+
+        _isDisposed = true;
+    }
+
+    private async ValueTask DisposeAsyncCore()
+    {
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        await _connection.DisposeAsync();
+        await GetByIdCommand.DisposeAsync();
+        await DeleteCommand.DisposeAsync();
+        await GetAllCommand.DisposeAsync();
+        await GetAllByStringCommand.DisposeAsync();
+
+        _isDisposed = true;
     }
 }
