@@ -8,69 +8,66 @@ namespace CourseWork2.Repositories;
 public abstract class RepositoryBase<T> where T : new()
 {
     private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=root;Pwd=562389;";
+
+    private readonly MySqlConnection _connection;
+
+    protected RepositoryBase()
+    {
+        _connection = new MySqlConnection(ConnectionString);
+    }
+
     public event Action? RepositoryChanged;
-    
+
     protected MySqlCommand GetByIdCommand { get; init; }
-    
+
     protected MySqlCommand DeleteCommand { get; init; }
-    
+
     protected MySqlCommand GetAllCommand { get; init; }
-    
+
     protected MySqlCommand GetAllByStringCommand { get; init; }
-    
+
     public async Task<T?> GetByIdAsync(int id)
     {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        
-        return await GetValueAsync(GetByIdCommand, connection, [id]);
+        return await GetValueAsync(GetByIdCommand, [id]);
     }
-    
+
     public async Task RemoveAsync(int id)
     {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        await ExecuteCommandAsync(DeleteCommand, connection, [id]);
+        await ExecuteCommandAsync(DeleteCommand, [id]);
     }
-    
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        
-        return await GetAllAsync(GetAllCommand, connection, []);
+        return await GetAllAsync(GetAllCommand, []);
     }
-    
+
     public async Task<IEnumerable<T>> GetAllByStringAsync(string text)
     {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        
-        return await GetAllAsync(GetAllByStringCommand, connection, [text]);
+        return await GetAllAsync(GetAllByStringCommand, [text]);
     }
 
     protected static MySqlConnection GetConnection()
     {
         return new MySqlConnection(ConnectionString);
     }
-    
-    protected async Task<List<T>> GetAllAsync(MySqlCommand command, MySqlConnection connection, object[] parameters)
+
+    protected async Task<List<T>> GetAllAsync(MySqlCommand command, object[] parameters)
     {
-        PrepareCommand(command, connection, parameters);
+        await PrepareCommand(command, parameters);
         await using DbDataReader reader = command.ExecuteReader();
         return GetInstancesList(reader);
     }
-    
-    protected async Task<T?> GetValueAsync(MySqlCommand command, MySqlConnection connection, object[] parameters)
+
+    protected async Task<T?> GetValueAsync(MySqlCommand command, object[] parameters)
     {
-        PrepareCommand(command, connection, parameters);
-        await using DbDataReader reader = await command.ExecuteReaderAsync();
+        await PrepareCommand(command, parameters);
+        await using DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
         return !await reader.ReadAsync() ? default(T?) : GetInstance(reader);
     }
 
-    protected async Task<int> ExecuteCommandAsync(MySqlCommand command, MySqlConnection connection, object[] parameters)
+    protected async Task<int> ExecuteCommandAsync(MySqlCommand command, object[] parameters)
     {
-        PrepareCommand(command, connection, parameters);
+        await PrepareCommand(command, parameters);
         int rowsNumber = await command.ExecuteNonQueryAsync();
         RepositoryChanged?.Invoke();
         return rowsNumber;
@@ -78,43 +75,42 @@ public abstract class RepositoryBase<T> where T : new()
 
     private List<T> GetInstancesList(DbDataReader reader)
     {
-        Type            type        = typeof(T);
-        ConstructorInfo constructor = type.GetConstructor([])!;
-        PropertyInfo[] properties = type.GetProperties();
-        
+        PropertyInfo[] properties = typeof(T).GetProperties();
+
         if (reader.FieldCount != properties.Length)
         {
             throw new ArgumentException("Invalid T type", nameof(reader));
         }
-        
+
         var list = new List<T>();
         while (reader.Read())
         {
-            var instance = (T)constructor.Invoke([]);
-            
+            var instance = new T();
+
             for (var i = 0; i < properties.Length; i++)
             {
                 properties[i].SetValue(instance, reader[i]);
             }
-            
+
             list.Add(instance);
         }
-        
+
         return list;
     }
 
-    private void PrepareCommand(MySqlCommand command, MySqlConnection connection, IReadOnlyList<object> parameters)
+    private async Task PrepareCommand(MySqlCommand command, IReadOnlyList<object> parameters)
     {
-        if (connection.State is not ConnectionState.Open)
+        if (_connection.State is not ConnectionState.Open)
         {
-            throw new Exception("Connection is not open");
+            await _connection.OpenAsync();
         }
+
         if (command.Parameters.Count != parameters.Count)
         {
             throw new Exception("Invalid number of parameters");
         }
 
-        command.Connection = connection;
+        command.Connection = _connection;
         for (var i = 0; i < parameters.Count; i++)
         {
             command.Parameters[i].Value = parameters[i];
@@ -123,17 +119,15 @@ public abstract class RepositoryBase<T> where T : new()
 
     private T GetInstance(IDataRecord reader)
     {
-        Type            type        = typeof(T);
-        ConstructorInfo constructor = type.GetConstructor([])!;
-        PropertyInfo[]  properties  = type.GetProperties();
+        PropertyInfo[] properties = typeof(T).GetProperties();
 
         if (reader.FieldCount != properties.Length)
         {
             throw new ArgumentException("Invalid T type", nameof(reader));
         }
 
-        var instance = (T)constructor.Invoke([]);
-        
+        var instance = new T();
+
         for (var i = 0; i < properties.Length; i++)
         {
             properties[i].SetValue(instance, reader[i]);

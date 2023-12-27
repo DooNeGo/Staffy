@@ -5,5 +5,4 @@ namespace CourseWork2.ViewModel;
 
 public class PositionsViewModel : IntegratedViewModel<PositionRepository, PositionModel>
 {
-    
 }

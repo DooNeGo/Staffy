@@ -15,17 +15,17 @@ public class MainViewModel : ViewModelBase
     private readonly UserRepository                   _userRepository;
     private readonly FrozenDictionary<Type, ViewData> _viewsData;
 
+    private string           _caption;
+    private UserControl      _currentChildView;
     private UserModel        _currentUser;
     private UserAccountModel _currentUserAccount;
-    private UserControl      _currentChildView;
-    private string           _caption;
     private IconChar         _icon;
 
     public MainViewModel()
     {
         _userRepository     = new UserRepository();
         _currentUserAccount = new UserAccountModel();
-        
+
         ShowHomeViewCommand        = new ViewModelCommand(ExecuteShowHomeViewCommand);
         ShowDepartmentsViewCommand = new ViewModelCommand(ExecuteShowDepartmentsViewCommand);
         ShowWorkersViewCommand     = new ViewModelCommand(ExecuteShowWorkersViewCommand);
@@ -42,18 +42,18 @@ public class MainViewModel : ViewModelBase
         };
 
         _viewsData = viewsData.ToFrozenDictionary();
-        
+
         ExecuteShowHomeViewCommand(null);
     }
 
     public ICommand ShowHomeViewCommand { get; }
-    
+
     public ICommand ShowDepartmentsViewCommand { get; }
-    
+
     public ICommand ShowWorkersViewCommand { get; }
-    
+
     public ICommand ShowPositionsViewCommand { get; }
-    
+
     public ICommand ShowReportsViewCommand { get; }
 
     public UserAccountModel CurrentUserAccount
@@ -65,13 +65,13 @@ public class MainViewModel : ViewModelBase
             InvokePropertyChanged(nameof(CurrentUserAccount));
         }
     }
-    
+
     public UserControl CurrentChildView
     {
         get => _currentChildView;
         set
         {
-            _currentChildView = value ?? throw new ArgumentNullException(nameof(value)); 
+            _currentChildView = value ?? throw new ArgumentNullException(nameof(value));
             InvokePropertyChanged(nameof(CurrentChildView));
         }
     }
@@ -95,10 +95,11 @@ public class MainViewModel : ViewModelBase
             InvokePropertyChanged(nameof(Icon));
         }
     }
-    
+
     public async void LoadCurrentUserModel()
     {
-        _currentUser = await _userRepository.GetByUsernameAsync(Thread.CurrentPrincipal!.Identity!.Name!);
+        _currentUser = await _userRepository.GetByUsernameAsync(Thread.CurrentPrincipal!.Identity!.Name!)
+                       ?? throw new NullReferenceException("No such username in repository");
         CurrentUserAccount = new UserAccountModel
         {
             Username       = _currentUser.Username,
@@ -109,7 +110,7 @@ public class MainViewModel : ViewModelBase
     public void LoadViewModelsData()
     {
         ImmutableArray<ViewData> viewDataValues = _viewsData.Values;
-        
+
         for (var i = 0; i < _viewsData.Count; i++)
         {
             ((IntegratedViewModelBase)viewDataValues[i].View.DataContext).Load();
@@ -122,32 +123,32 @@ public class MainViewModel : ViewModelBase
         Caption          = viewData.Caption;
         Icon             = viewData.Icon;
     }
-    
+
     private void ExecuteShowHomeViewCommand(object? obj)
     {
         SetChildViewModelData(_viewsData[typeof(HomeView)]);
     }
-    
+
     private void ExecuteShowDepartmentsViewCommand(object? obj)
     {
         SetChildViewModelData(_viewsData[typeof(DepartmentsView)]);
     }
-    
+
     private void ExecuteShowWorkersViewCommand(object? obj)
     {
         SetChildViewModelData(_viewsData[typeof(WorkersView)]);
     }
-    
+
     private void ExecuteShowPositionsViewCommand(object? obj)
     {
         SetChildViewModelData(_viewsData[typeof(PositionsView)]);
     }
-    
+
     private void ExecuteShowReportsViewCommand(object? obj)
     {
         SetChildViewModelData(_viewsData[typeof(ReportsView)]);
     }
-    
+
     private class ViewData(UserControl view, string caption, IconChar icon)
     {
         public UserControl View { get; } = view;

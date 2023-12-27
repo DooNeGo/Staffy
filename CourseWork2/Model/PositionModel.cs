@@ -1,8 +1,10 @@
 ﻿namespace CourseWork2.Model;
 
-public class PositionModel : DataModelBase
+public class PositionModel : IDataModel
 {
-    public string Name { get; set; } = string.Empty;
+    public int Id { get; set; }
     
+    public string Name { get; set; } = string.Empty;
+
     public decimal Salary { get; set; }
 }

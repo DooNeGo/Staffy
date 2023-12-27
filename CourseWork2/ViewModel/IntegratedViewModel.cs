@@ -8,7 +8,7 @@ namespace CourseWork2.ViewModel;
 
 public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelBase
     where TRepository : RepositoryBase<TDataModel>, new()
-    where TDataModel : DataModelBase, new()
+    where TDataModel : IDataModel, new()
 {
     private readonly TRepository _repository;
     private readonly Timer       _timer;

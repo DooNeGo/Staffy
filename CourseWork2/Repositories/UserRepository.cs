@@ -11,23 +11,19 @@ public class UserRepository : RepositoryBase<UserModel>, IUserRepository
     {
         GetByUsernameCommand = new MySqlCommand("SELECT * FROM users WHERE username=@username");
         GetByUsernameCommand.Parameters.Add(new MySqlParameter("@username", MySqlDbType.VarChar));
+
+        AuthUserCommand = new MySqlCommand("SELECT * FROM users WHERE username=@username AND password=@password");
+        AuthUserCommand.Parameters.Add("@username", MySqlDbType.VarChar);
+        AuthUserCommand.Parameters.Add("@password", MySqlDbType.VarChar);
     }
-    
+
     private MySqlCommand GetByUsernameCommand { get; }
-    
+
+    private MySqlCommand AuthUserCommand { get; }
+
     public async Task<bool> AuthenticateUserAsync(NetworkCredential credential)
     {
-        await using MySqlConnection connection = GetConnection();
-        await using MySqlCommand    command    = connection.CreateCommand();
-
-        Task task = connection.OpenAsync();
-
-        command.CommandText = "SELECT * FROM users WHERE username=@username and password=@password";
-        command.Parameters.Add("@username", MySqlDbType.VarChar).Value = credential.UserName;
-        command.Parameters.Add("@password", MySqlDbType.VarChar).Value = credential.Password;
-
-        await task;
-        return command.ExecuteScalar() is not null;
+        return await GetValueAsync(AuthUserCommand, [credential.UserName, credential.Password]) is not null;
     }
 
     public async Task AddAsync(UserModel user)
@@ -42,8 +38,6 @@ public class UserRepository : RepositoryBase<UserModel>, IUserRepository
 
     public async Task<UserModel?> GetByUsernameAsync(string username)
     {
-        await using MySqlConnection connection = GetConnection();
-        await connection.OpenAsync();
-        return await GetValueAsync(GetByUsernameCommand, connection, [username]);
+        return await GetValueAsync(GetByUsernameCommand, [username]);
     }
 }

@@ -11,8 +11,8 @@ public interface IWorkerRepository
     public Task RemoveAsync(int id);
 
     public Task<WorkerModel?> GetByIdAsync(int id);
-    
+
     public Task<IEnumerable<WorkerModel>> GetAllAsync();
-    
+
     public Task<IEnumerable<WorkerModel>> GetAllByStringAsync(string text);
 }
