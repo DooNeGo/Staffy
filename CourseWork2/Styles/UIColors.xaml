@@ -39,5 +39,8 @@
 
     <SolidColorBrush x:Key="PanelActiveColor"> #1661B6 </SolidColorBrush>
     <SolidColorBrush x:Key="PanelMouseOverColor"> #1457A3 </SolidColorBrush>
+    
+    <SolidColorBrush x:Key="DataGridRowColorBrush"> #155CAD </SolidColorBrush>
+    <SolidColorBrush x:Key="DataGridRowMouseOverColorBrush"> #1B74DA </SolidColorBrush>
 
 </ResourceDictionary>

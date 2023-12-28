@@ -60,7 +60,7 @@
     </Style>
     
     <Style x:Key="DataGridRowStyle" TargetType="{x:Type DataGridRow}">
-        <Setter Property="Background" Value="{StaticResource PanelActiveColor}"/>
+        <Setter Property="Background" Value="{StaticResource DataGridRowColorBrush}"/>
         <Setter Property="Margin" Value="0 4 0 0"/>
         <Setter Property="BorderThickness" Value="0"></Setter>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
@@ -95,12 +95,12 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#1B74DA"/>
+                <Setter Property="Background" Value="{StaticResource DataGridRowMouseOverColorBrush}"/>
                 <Setter Property="Foreground" Value="{StaticResource MainFontColor1}"/>
             </Trigger>
             
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="#1B74DA"/>
+                <Setter Property="Background" Value="{StaticResource DataGridRowMouseOverColorBrush}"/>
                 <Setter Property="Foreground" Value="{StaticResource MainFontColor1}"/>
             </Trigger>
             
@@ -109,7 +109,8 @@
                     <Condition Property="IsSelected" Value="True"/>
                     <Condition Property="Selector.IsSelectionActive" Value="False"/>
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="#1B74DA"></Setter>
+                <Setter Property="Background" Value="{StaticResource DataGridRowMouseOverColorBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource MainFontColor1}"/>
             </MultiTrigger>
         </Style.Triggers>
     </Style>
