@@ -49,7 +49,7 @@ public class MainViewModel : ViewModelBase
         
         LoadCurrentUserModel();
         LoadViewModelsData();
-        ExecuteShowHomeViewCommand(null);
+        ExecuteShowDepartmentsViewCommand(null);
     }
 
     public ICommand ShowHomeViewCommand { get; }

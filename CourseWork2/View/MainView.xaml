@@ -57,7 +57,7 @@
                     </StackPanel>
 
                     <StackPanel>
-                        <RadioButton Style="{StaticResource MenuButton}"
+                        <!--<RadioButton Style="{StaticResource MenuButton}"
                                      Tag="{StaticResource Color1}"
                                      Command="{Binding ShowHomeViewCommand}"
                                      IsChecked="True">
@@ -67,10 +67,11 @@
                                 <TextBlock Style="{StaticResource MenuButtonText}"
                                            Text="Dashboard" />
                             </StackPanel>
-                        </RadioButton>
+                        </RadioButton>-->
                         
                         <RadioButton Style="{StaticResource MenuButton}"
                                      Tag="{StaticResource Color2}"
+                                     IsChecked="True"
                                      Command="{Binding ShowDepartmentsViewCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Style="{StaticResource MenuButtonImage}"

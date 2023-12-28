@@ -5,6 +5,9 @@
     <Color x:Key="PrimaryBackColor2"> #0B3559 </Color>
     <Color x:Key="SecondaryBackColor1"> #124D91 </Color>
     <Color x:Key="SecondaryBackColor2"> #0D3A6D </Color>
+    
+    <SolidColorBrush x:Key="SecondaryBackColorBrush1"> #124D91 </SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryBackColorBrush2"> #0D3A6D </SolidColorBrush>
 
     <Color x:Key="BorderColor1"> #377AE6 </Color>
     <Color x:Key="BorderColor2"> #3795E6 </Color>

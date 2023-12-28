@@ -116,7 +116,7 @@
         </Grid>
 
         <Border Grid.Row="1"
-                Background="{StaticResource PanelMouseOverColor}"
+                Background="{StaticResource SecondaryBackColorBrush1}"
                 CornerRadius="10"
                 Padding="10">
 
