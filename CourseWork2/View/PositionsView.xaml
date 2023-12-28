@@ -10,6 +10,7 @@
              d:DataContext="{d:DesignInstance viewModel:PositionsViewModel}"
              d:DesignHeight="450"
              d:DesignWidth="800"
+             MouseDown="PositionsView_OnMouseDown"
              Background="Transparent">
     
     <UserControl.DataContext>
