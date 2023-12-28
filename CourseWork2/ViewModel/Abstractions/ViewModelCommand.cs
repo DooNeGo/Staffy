@@ -2,23 +2,9 @@
 
 namespace CourseWork2.ViewModel.Abstractions;
 
-internal class ViewModelCommand : ICommand
+internal class ViewModelCommand(Action<object?> executeAction, Predicate<object?>? canExecuteAction = null)
+    : ICommand
 {
-    private readonly Predicate<object>? _canExecuteAction;
-    private readonly Action<object>?    _executeAction;
-
-    public ViewModelCommand(Action<object> executeAction)
-    {
-        _executeAction    = executeAction;
-        _canExecuteAction = null;
-    }
-
-    public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
-    {
-        _executeAction    = executeAction;
-        _canExecuteAction = canExecuteAction;
-    }
-
     public event EventHandler? CanExecuteChanged
     {
         add => CommandManager.RequerySuggested += value;
@@ -27,11 +13,11 @@ internal class ViewModelCommand : ICommand
 
     public bool CanExecute(object? parameter)
     {
-        return _canExecuteAction is null || _canExecuteAction(parameter);
+        return canExecuteAction is null || canExecuteAction(parameter);
     }
 
     public void Execute(object? parameter)
     {
-        _executeAction?.Invoke(parameter);
+        executeAction.Invoke(parameter);
     }
 }

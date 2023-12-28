@@ -9,10 +9,12 @@ public class UserRepository : RepositoryBase<UserModel>, IUserRepository
 {
     public UserRepository()
     {
-        GetByUsernameCommand = new MySqlCommand("SELECT * FROM users WHERE username=@username");
+        GetByUsernameCommand = new MySqlCommand("SELECT u.id, u.username, u.email, u.role " +
+                                                "FROM users AS u WHERE username=@username");
         GetByUsernameCommand.Parameters.Add(new MySqlParameter("@username", MySqlDbType.VarChar));
 
-        AuthUserCommand = new MySqlCommand("SELECT * FROM users WHERE username=@username AND password=@password");
+        AuthUserCommand = new MySqlCommand("SELECT u.id, u.username, u.email, u.role " +
+                                           "FROM users AS u WHERE username=@username AND password=@password");
         AuthUserCommand.Parameters.Add("@username", MySqlDbType.VarChar);
         AuthUserCommand.Parameters.Add("@password", MySqlDbType.VarChar);
     }
