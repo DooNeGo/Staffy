@@ -18,13 +18,13 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
         _connection = new MySqlConnection(ConnectionString);
     }
 
-    protected MySqlCommand GetByIdCommand { get; init; }
+    protected MySqlCommand GetByIdCommand { get; set; }
 
-    protected MySqlCommand DeleteCommand { get; init; }
+    protected MySqlCommand DeleteCommand { get; set; }
 
-    protected MySqlCommand GetAllCommand { get; init; }
+    protected MySqlCommand GetAllCommand { get; set; }
 
-    protected MySqlCommand GetAllByStringCommand { get; init; }
+    protected MySqlCommand GetAllByStringCommand { get; set; }
 
     public async ValueTask DisposeAsync()
     {
@@ -50,12 +50,12 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
         await ExecuteCommandAsync(DeleteCommand, [id]);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<List<T>> GetAllAsync()
     {
         return await GetAllAsync(GetAllCommand, []);
     }
 
-    public async Task<IEnumerable<T>> GetAllByStringAsync(string text)
+    public async Task<List<T>> GetAllByStringAsync(string text)
     {
         return await GetAllAsync(GetAllByStringCommand, [text]);
     }

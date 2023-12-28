@@ -13,17 +13,18 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
     private readonly TRepository _repository;
     private readonly Timer       _timer;
 
-    private IEnumerable<TDataModel>? _items;
-    private string?                  _searchText;
-    private TDataModel?              _selectedItem;
+    private IEnumerable<TDataModel> _items;
+    private string?                 _searchText;
+    private TDataModel?             _selectedItem;
 
     public IntegratedViewModel()
     {
         _repository   = new TRepository();
+        _items        = Array.Empty<TDataModel>();
         DeleteCommand = new ViewModelCommand(ExecuteDeleteCommand, CanExecuteDeleteCommand);
         _timer        = new Timer { AutoReset = false };
         _timer.Start();
-
+        
         _repository.RepositoryChanged += UpdateItems;
         _timer.Elapsed                += (_, _) => { UpdateItems(); };
     }
@@ -51,7 +52,7 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         }
     }
 
-    public IEnumerable<TDataModel>? Items
+    public IEnumerable<TDataModel> Items
     {
         get => _items;
         set
@@ -68,34 +69,23 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
 
     private async void UpdateItems()
     {
-        if (SearchText is null)
-        {
-            Items = await _repository.GetAllAsync();
-        }
-        else
-        {
-            Items = await _repository.GetAllByStringAsync(SearchText);
-            
-            if (!int.TryParse(SearchText, out int result))
-            {
-                return;
-            }
-
-            TDataModel? item = await _repository.GetByIdAsync(result);
-            if (item is not null)
-            {
-                Items = Items.Append(item);
-            }
-        }
+        Items = string.IsNullOrEmpty(SearchText)
+            ? await _repository.GetAllAsync()
+            : await _repository.GetAllByStringAsync(SearchText);
     }
 
-    private bool CanExecuteDeleteCommand(object obj)
+    private bool CanExecuteDeleteCommand(object? obj)
     {
         return SelectedItem is not null;
     }
 
-    private void ExecuteDeleteCommand(object obj)
+    private void ExecuteDeleteCommand(object? obj)
     {
-        _repository.RemoveAsync(SelectedItem!.Id);
+        if (SelectedItem is null)
+        {
+            return;
+        }
+        
+        _repository.RemoveAsync(SelectedItem.Id);
     }
 }

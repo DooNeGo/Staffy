@@ -92,6 +92,39 @@
                         </RadioButton>
                         
                         <RadioButton Style="{StaticResource MenuButton}"
+                                     Tag="{StaticResource Color6}"
+                                     Command="{Binding ShowAcceptedWorkersViewCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Style="{StaticResource MenuButtonImage}"
+                                              Icon="UserPlus" />
+                                <TextBlock Style="{StaticResource MenuButtonText}"
+                                           Text="Accepted Workers" />
+                            </StackPanel>
+                        </RadioButton>
+                        
+                        <RadioButton Style="{StaticResource MenuButton}"
+                                     Tag="{StaticResource Color5}"
+                                     Command="{Binding ShowFiredWorkersViewCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Style="{StaticResource MenuButtonImage}"
+                                              Icon="UserSlash" />
+                                <TextBlock Style="{StaticResource MenuButtonText}"
+                                           Text="Fired Workers" />
+                            </StackPanel>
+                        </RadioButton>
+                        
+                        <RadioButton Style="{StaticResource MenuButton}"
+                                     Tag="{StaticResource Color7}"
+                                     Command="{Binding ShowRetiredWorkersViewCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Style="{StaticResource MenuButtonImage}"
+                                              Icon="UserMinus" />
+                                <TextBlock Style="{StaticResource MenuButtonText}"
+                                           Text="Retired Workers" />
+                            </StackPanel>
+                        </RadioButton>
+                        
+                        <RadioButton Style="{StaticResource MenuButton}"
                                      Tag="{StaticResource Color4}"
                                      Command="{Binding ShowPositionsViewCommand}">
                             <StackPanel Orientation="Horizontal">
@@ -102,7 +135,7 @@
                             </StackPanel>
                         </RadioButton>
                         
-                        <RadioButton Style="{StaticResource MenuButton}"
+                        <!--<RadioButton Style="{StaticResource MenuButton}"
                                      Tag="{StaticResource Color5}"
                                      Command="{Binding ShowReportsViewCommand}">
                             <StackPanel Orientation="Horizontal">
@@ -111,9 +144,9 @@
                                 <TextBlock Style="{StaticResource MenuButtonText}"
                                            Text="Reports" />
                             </StackPanel>
-                        </RadioButton>
+                        </RadioButton>-->
                         
-                        <RadioButton Style="{StaticResource MenuButton}"
+                        <!--<RadioButton Style="{StaticResource MenuButton}"
                                      Tag="{StaticResource Color6}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Style="{StaticResource MenuButtonImage}"
@@ -121,7 +154,7 @@
                                 <TextBlock Style="{StaticResource MenuButtonText}"
                                            Text="Settings" />
                             </StackPanel>
-                        </RadioButton>
+                        </RadioButton>-->
                     </StackPanel>
 
                 </StackPanel>

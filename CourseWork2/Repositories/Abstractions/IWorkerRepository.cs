@@ -12,7 +12,7 @@ public interface IWorkerRepository
 
     public Task<WorkerModel?> GetByIdAsync(int id);
 
-    public Task<IEnumerable<WorkerModel>> GetAllAsync();
+    public Task<List<WorkerModel>> GetAllAsync();
 
-    public Task<IEnumerable<WorkerModel>> GetAllByStringAsync(string text);
+    public Task<List<WorkerModel>> GetAllByStringAsync(string text);
 }

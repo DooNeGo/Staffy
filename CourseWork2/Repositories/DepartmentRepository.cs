@@ -16,8 +16,10 @@ public class DepartmentRepository : RepositoryBase<DepartmentModel>, IDepartment
 
         GetAllCommand = new MySqlCommand("SELECT * FROM departments");
 
-        GetAllByStringCommand = new MySqlCommand("SELECT * FROM departments WHERE LOCATE(@string, name) > 0 " +
-                                                 "OR LOCATE(@string, address) > 0 OR LOCATE(@string, phone) > 0");
+        GetAllByStringCommand = new MySqlCommand("SELECT * FROM departments "                                    +
+                                                 "WHERE LOCATE(@string, name) > 0 OR LOCATE(name, @string) > 0 " +
+                                                 "OR LOCATE(@string, address) > 0 OR LOCATE(@string, phone) > 0 "                                              +
+                                                 "OR @string = id ");
         GetAllByStringCommand.Parameters.Add(new MySqlParameter("@string", MySqlDbType.VarChar));
 
         DeleteCommand = new MySqlCommand("DELETE FROM departments WHERE id=@id");

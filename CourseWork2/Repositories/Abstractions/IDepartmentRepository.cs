@@ -14,7 +14,7 @@ public interface IDepartmentRepository
 
     public Task<DepartmentModel?> GetByNameAsync(string name);
 
-    public Task<IEnumerable<DepartmentModel>> GetAllAsync();
+    public Task<List<DepartmentModel>> GetAllAsync();
 
-    public Task<IEnumerable<DepartmentModel>> GetAllByStringAsync(string text);
+    public Task<List<DepartmentModel>> GetAllByStringAsync(string text);
 }

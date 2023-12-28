@@ -25,6 +25,7 @@
     <SolidColorBrush x:Key="Color4"> #FFB05E </SolidColorBrush>
     <SolidColorBrush x:Key="Color5"> #78FFD6 </SolidColorBrush>
     <SolidColorBrush x:Key="Color6"> #6BFF7F </SolidColorBrush>
+    <SolidColorBrush x:Key="Color7"> #7678ED </SolidColorBrush>
 
     <SolidColorBrush x:Key="MainFontColor1"> White </SolidColorBrush>
     <SolidColorBrush x:Key="MainFontColor2"> Black </SolidColorBrush>

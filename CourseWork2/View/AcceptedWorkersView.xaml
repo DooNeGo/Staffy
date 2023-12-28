@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CourseWork2.View.PositionsView"
+﻿<UserControl x:Class="CourseWork2.View.AcceptedWorkersView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,13 +7,13 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:viewModel="clr-namespace:CourseWork2.ViewModel"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModel:PositionsViewModel}"
              d:DesignHeight="450"
              d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModel:AcceptedWorkersViewModel}"
              Background="Transparent">
     
     <UserControl.DataContext>
-        <viewModel:PositionsViewModel/>
+        <viewModel:AcceptedWorkersViewModel/>
     </UserControl.DataContext>
     
     <UserControl.Resources>
@@ -136,14 +136,40 @@
                                         CanUserResize="False"
                                         Width="Auto"
                                         Binding="{Binding Id}"/>
+
+                    <DataGridTextColumn Header="Surname"
+                                        IsReadOnly="True"
+                                        CanUserResize="True"
+                                        Width="*"
+                                        Binding="{Binding Surname}"/>
                     
                     <DataGridTextColumn Header="Name"
                                         IsReadOnly="True"
+                                        CanUserResize="True"
                                         Width="*"
                                         Binding="{Binding Name}"/>
                     
+                    <DataGridTextColumn Header="Patronymic"
+                                        IsReadOnly="True"
+                                        CanUserResize="True"
+                                        Width="*"
+                                        Binding="{Binding Patronymic}"/>
+
+                    <DataGridTextColumn Header="Accept Date"
+                                        IsReadOnly="True"
+                                        CanUserResize="True"
+                                        Width="*"
+                                        Binding="{Binding AcceptDate}"/>
+                    
+                    <DataGridTextColumn Header="Position"
+                                        IsReadOnly="True"
+                                        CanUserResize="True"
+                                        Width="*"
+                                        Binding="{Binding Position}"/>
+
                     <DataGridTextColumn Header="Salary"
                                         IsReadOnly="True"
+                                        CanUserResize="True"
                                         Width="*"
                                         Binding="{Binding Salary}"/>
                     

@@ -15,5 +15,5 @@ public interface IUserRepository
 
     public Task<UserModel?> GetByUsernameAsync(string username);
 
-    public Task<IEnumerable<UserModel>> GetAllAsync();
+    public Task<List<UserModel>> GetAllAsync();
 }

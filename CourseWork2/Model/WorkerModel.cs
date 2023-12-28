@@ -16,5 +16,11 @@ public class WorkerModel : IDataModel
 
     public bool MilitaryRegistration { get; set; }
 
-    public object DepartmentId { get; set; }
+    public string DepartmentId { get; set; } = string.Empty;
+    
+    public override bool Equals(object? obj)
+    {
+        return obj is WorkerModel worker
+               && worker.Id == Id;
+    }
 }

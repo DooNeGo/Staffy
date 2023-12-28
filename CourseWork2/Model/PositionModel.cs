@@ -7,4 +7,10 @@ public class PositionModel : IDataModel
     public string Name { get; set; } = string.Empty;
 
     public decimal Salary { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is PositionModel position
+               && position.Id == Id;
+    }
 }

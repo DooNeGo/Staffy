@@ -26,11 +26,13 @@ public class MainViewModel : ViewModelBase
         _userRepository     = new UserRepository();
         _currentUserAccount = new UserAccountModel();
 
-        ShowHomeViewCommand        = new ViewModelCommand(ExecuteShowHomeViewCommand);
-        ShowDepartmentsViewCommand = new ViewModelCommand(ExecuteShowDepartmentsViewCommand);
-        ShowWorkersViewCommand     = new ViewModelCommand(ExecuteShowWorkersViewCommand);
-        ShowPositionsViewCommand   = new ViewModelCommand(ExecuteShowPositionsViewCommand);
-        ShowReportsViewCommand     = new ViewModelCommand(ExecuteShowReportsViewCommand);
+        ShowHomeViewCommand            = new ViewModelCommand(ExecuteShowHomeViewCommand);
+        ShowDepartmentsViewCommand     = new ViewModelCommand(ExecuteShowDepartmentsViewCommand);
+        ShowWorkersViewCommand         = new ViewModelCommand(ExecuteShowWorkersViewCommand);
+        ShowPositionsViewCommand       = new ViewModelCommand(ExecuteShowPositionsViewCommand);
+        ShowAcceptedWorkersViewCommand = new ViewModelCommand(ExecuteShowAcceptedWorkersCommand);
+        ShowFiredWorkersViewCommand    = new ViewModelCommand(ExecuteShowFiredWorkersCommand);
+        ShowRetiredWorkersViewCommand  = new ViewModelCommand(ExecuteShowRetiredWorkersCommand);
 
         var viewsData = new Dictionary<Type, ViewData>
         {
@@ -38,7 +40,9 @@ public class MainViewModel : ViewModelBase
             { typeof(DepartmentsView), new ViewData(new DepartmentsView(), "Departments", IconChar.Building) },
             { typeof(WorkersView), new ViewData(new WorkersView(), "Workers", IconChar.Users) },
             { typeof(PositionsView), new ViewData(new PositionsView(), "Positions", IconChar.Star) },
-            { typeof(ReportsView), new ViewData(new ReportsView(), "Reports", IconChar.File) }
+            { typeof(AcceptedWorkersView), new ViewData(new AcceptedWorkersView(), "Accepted Workers", IconChar.UserPlus) },
+            { typeof(FiredWorkersView), new ViewData(new FiredWorkersView(), "Fired Workers", IconChar.UserSlash) },
+            { typeof(RetiredWorkersView), new ViewData(new RetiredWorkersView(), "Retired Workers", IconChar.UserMinus) }
         };
 
         _viewsData = viewsData.ToFrozenDictionary();
@@ -53,8 +57,12 @@ public class MainViewModel : ViewModelBase
     public ICommand ShowWorkersViewCommand { get; }
 
     public ICommand ShowPositionsViewCommand { get; }
-
-    public ICommand ShowReportsViewCommand { get; }
+    
+    public ICommand ShowAcceptedWorkersViewCommand { get; }
+    
+    public ICommand ShowFiredWorkersViewCommand { get; }
+    
+    public ICommand ShowRetiredWorkersViewCommand { get; }
 
     public UserAccountModel CurrentUserAccount
     {
@@ -143,10 +151,20 @@ public class MainViewModel : ViewModelBase
     {
         SetChildViewModelData(_viewsData[typeof(PositionsView)]);
     }
-
-    private void ExecuteShowReportsViewCommand(object? obj)
+    
+    private void ExecuteShowAcceptedWorkersCommand(object? obj)
     {
-        SetChildViewModelData(_viewsData[typeof(ReportsView)]);
+        SetChildViewModelData(_viewsData[typeof(AcceptedWorkersView)]);
+    }
+    
+    private void ExecuteShowFiredWorkersCommand(object? obj)
+    {
+        SetChildViewModelData(_viewsData[typeof(FiredWorkersView)]);
+    }
+    
+    private void ExecuteShowRetiredWorkersCommand(object? obj)
+    {
+        SetChildViewModelData(_viewsData[typeof(RetiredWorkersView)]);
     }
 
     private class ViewData(UserControl view, string caption, IconChar icon)

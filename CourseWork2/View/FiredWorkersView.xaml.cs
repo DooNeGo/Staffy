@@ -3,9 +3,9 @@ using System.Windows.Media;
 
 namespace CourseWork2.View;
 
-public partial class PositionsView
+public partial class FiredWorkersView : UserControl
 {
-    public PositionsView()
+    public FiredWorkersView()
     {
         InitializeComponent();
     }

@@ -19,7 +19,7 @@ public class LoginViewModel : ViewModelBase
     public LoginViewModel()
     {
         LoginCommand           = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-        RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
+        RecoverPasswordCommand = new ViewModelCommand(_ => ExecuteRecoverPasswordCommand("", ""));
         _userRepository        = new UserRepository();
     }
 
@@ -73,14 +73,14 @@ public class LoginViewModel : ViewModelBase
 
     public event Action? LoginSuccess;
 
-    private bool CanExecuteLoginCommand(object obj)
+    private bool CanExecuteLoginCommand(object? obj)
     {
         return !string.IsNullOrWhiteSpace(Username)
                && Username.Length >= 3
                && Password.Length >= 3;
     }
 
-    private async void ExecuteLoginCommand(object obj)
+    private async void ExecuteLoginCommand(object? obj)
     {
         bool result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
         if (result)
