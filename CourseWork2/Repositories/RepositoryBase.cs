@@ -9,7 +9,7 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
 {
     private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=root;Pwd=562389;";
 
-    private readonly MySqlConnection _connection; //TODO: Сделать пул подключений
+    private readonly MySqlConnection _connection;
 
     private bool _isDisposed;
 
@@ -68,7 +68,7 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
     protected async Task<List<T>> GetAllAsync(MySqlCommand command, object[] parameters)
     {
         await PrepareCommand(command, parameters);
-        await using DbDataReader reader = command.ExecuteReader();
+        await using DbDataReader reader = await command.ExecuteReaderAsync();
         return GetInstancesList(reader);
     }
 

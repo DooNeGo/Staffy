@@ -8,16 +8,18 @@ public partial class App
 {
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
-        var mainView      = new MainView();
-        var mainViewModel = (MainViewModel)mainView.DataContext; //TODO: Можно убрать и сделать создание после успешной авторизации
-
+        System.Windows.Forms.Application.EnableVisualStyles();
+        
         var loginView      = new LoginView();
         var loginViewModel = (LoginViewModel)loginView.DataContext;
-
-        loginViewModel.LoginSuccess += mainViewModel.LoadCurrentUserModel;
-        loginViewModel.LoginSuccess += loginView.Close;
-        loginViewModel.LoginSuccess += mainView.Show;
-        loginViewModel.LoginSuccess += mainViewModel.LoadViewModelsData;
+        
+        loginViewModel.LoginSuccess += () =>
+        {
+            var mainView = new MainView();
+            
+            loginView.Close();
+            mainView.Show();
+        };
 
         loginView.Show();
     }

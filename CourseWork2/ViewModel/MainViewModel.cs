@@ -46,7 +46,9 @@ public class MainViewModel : ViewModelBase
         };
 
         _viewsData = viewsData.ToFrozenDictionary();
-
+        
+        LoadCurrentUserModel();
+        LoadViewModelsData();
         ExecuteShowHomeViewCommand(null);
     }
 

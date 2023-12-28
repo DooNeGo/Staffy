@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Forms;
+using System.Windows.Input;
 using CourseWork2.Model;
 using CourseWork2.Repositories;
 using CourseWork2.ViewModel.Abstractions;
@@ -13,17 +14,15 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
     private readonly TRepository _repository;
     private readonly Timer       _timer;
 
-    private IEnumerable<TDataModel> _items;
-    private string?                 _searchText;
-    private TDataModel?             _selectedItem;
+    private IEnumerable<TDataModel>? _items;
+    private string?                  _searchText;
+    private TDataModel?              _selectedItem;
 
     public IntegratedViewModel()
     {
         _repository   = new TRepository();
-        _items        = Array.Empty<TDataModel>();
         DeleteCommand = new ViewModelCommand(ExecuteDeleteCommand, CanExecuteDeleteCommand);
         _timer        = new Timer { AutoReset = false };
-        _timer.Start();
         
         _repository.RepositoryChanged += UpdateItems;
         _timer.Elapsed                += (_, _) => { UpdateItems(); };
@@ -39,6 +38,7 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
             _searchText = value;
             InvokePropertyChanged(nameof(SearchText));
             _timer.Interval = 500;
+            _timer.Start();
         }
     }
 
@@ -52,7 +52,7 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         }
     }
 
-    public IEnumerable<TDataModel> Items
+    public IEnumerable<TDataModel>? Items
     {
         get => _items;
         set
@@ -85,7 +85,13 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         {
             return;
         }
-        
-        _repository.RemoveAsync(SelectedItem.Id);
+
+
+        if (MessageBox.Show("Are you sure?", "Confirmation of deletion", MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Warning,
+                            MessageBoxDefaultButton.Button2) is DialogResult.Yes)
+        {
+            _repository.RemoveAsync(SelectedItem.Id);
+        }
     }
 }
