@@ -7,7 +7,7 @@ namespace CourseWork2.Repositories;
 
 public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T : new()
 {
-    private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=root;Pwd=562389;";
+    private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=user;Pwd=1111;";
 
     private readonly MySqlConnection _connection;
 
