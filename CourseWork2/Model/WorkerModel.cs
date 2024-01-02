@@ -16,7 +16,7 @@ public class WorkerModel : IDataModel
 
     public bool MilitaryRegistration { get; set; }
 
-    public string DepartmentId { get; set; } = string.Empty;
+    public dynamic Department { get; set; } = string.Empty;
     
     public override bool Equals(object? obj)
     {

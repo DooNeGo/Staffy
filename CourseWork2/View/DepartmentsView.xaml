@@ -16,22 +16,6 @@
         <viewModel:DepartmentsViewModel/>
     </UserControl.DataContext>
 
-    <UserControl.Resources>
-        <ImageBrush x:Key="Watermark"
-                    ImageSource="/CourseWork2;component/Images/searchWatermark.png"
-                    Stretch="Uniform"
-                    AlignmentX="Left"
-                    AlignmentY="Bottom">
-            <ImageBrush.Transform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX=".5"
-                                    ScaleY=".5"/>
-                    <TranslateTransform Y="5"/>
-                </TransformGroup>
-            </ImageBrush.Transform>
-        </ImageBrush>
-    </UserControl.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/> <RowDefinition Height="*"/>
@@ -103,7 +87,6 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="30"
-                                Width="100"
                                 CornerRadius="15"
                                 Background="{TemplateBinding Background}">
                             <ContentPresenter VerticalAlignment="Center"

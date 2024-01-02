@@ -11,3 +11,5 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON courseworkdb.users TO 'user'@'localhost'
 
 CREATE USER 'admin'@'localhost' IDENTIFIED BY '2222';
 GRANT ALL PRIVILEGES ON courseworkdb.* TO 'admin'@'localhost';
+
+FLUSH PRIVILEGES 

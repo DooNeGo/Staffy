@@ -7,10 +7,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/UIColors.xaml"/>
-                <ResourceDictionary Source="Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="Styles/UIFonts.xaml"/>
-                <ResourceDictionary Source="Styles/BorderBrush.xaml"/>
-                <ResourceDictionary Source="Styles/DataGrid.xaml"/>
+                <ResourceDictionary Source="Styles/BorderBrushStyles.xaml"/>
+                <ResourceDictionary Source="Styles/DataGridStyles.xaml" />
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

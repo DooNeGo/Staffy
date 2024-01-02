@@ -4,9 +4,9 @@ namespace CourseWork2.Repositories.Abstractions;
 
 public interface IWorkerRepository
 {
-    public Task Add(WorkerModel worker);
+    public Task AddAsync(WorkerModel worker);
 
-    public Task Edit(WorkerModel worker);
+    public Task EditAsync(WorkerModel worker);
 
     public Task RemoveAsync(int id);
 

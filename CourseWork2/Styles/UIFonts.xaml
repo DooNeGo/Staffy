@@ -3,4 +3,17 @@
 
     <FontFamily x:Key="MainFont"> Montserrat </FontFamily>
 
+    <ImageBrush x:Key="Watermark"
+                ImageSource="/CourseWork2;component/Images/searchWatermark.png"
+                Stretch="Uniform"
+                AlignmentX="Left"
+                AlignmentY="Bottom">
+        <ImageBrush.Transform>
+            <TransformGroup>
+                <ScaleTransform ScaleX=".5"
+                                ScaleY=".5"/>
+                <TranslateTransform Y="5"/>
+            </TransformGroup>
+        </ImageBrush.Transform>
+    </ImageBrush>
 </ResourceDictionary>

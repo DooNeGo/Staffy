@@ -16,22 +16,6 @@
     <UserControl.DataContext>
         <viewModel:WorkersViewModel/>
     </UserControl.DataContext>
-    
-    <UserControl.Resources>
-        <ImageBrush x:Key="Watermark"
-                    ImageSource="/CourseWork2;component/Images/searchWatermark.png"
-                    Stretch="Uniform"
-                    AlignmentX="Left"
-                    AlignmentY="Bottom">
-            <ImageBrush.Transform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX=".5"
-                                    ScaleY=".5"/>
-                    <TranslateTransform Y="5"/>
-                </TransformGroup>
-            </ImageBrush.Transform>
-        </ImageBrush>
-    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -99,12 +83,12 @@
                     Foreground="{StaticResource MainFontColor1}"
                     VerticalAlignment="Top"
                     Margin="10, 0, 0, 0"
-                    Style="{StaticResource DataGridAddButton}">
+                    Style="{StaticResource DataGridAddButton}"
+                    Command="{Binding ShowAddWorkerView}">
 
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="30"
-                                Width="100"
                                 CornerRadius="15"
                                 Background="{TemplateBinding Background}">
                             <ContentPresenter VerticalAlignment="Center"
@@ -121,63 +105,7 @@
                 CornerRadius="10"
                 Padding="10">
 
-            <DataGrid x:Name="DataGrid"
-                      Style="{DynamicResource DataGridStyle}"
-                      CellStyle="{DynamicResource DataGridCellStyle}"
-                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
-                      RowStyle="{DynamicResource DataGridRowStyle}"
-                      AutoGenerateColumns="False"
-                      HorizontalAlignment="Center"
-                      ItemsSource="{Binding Items}"
-                      SelectedItem="{Binding SelectedItem}">
-
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id"
-                                        IsReadOnly="True"
-                                        CanUserResize="False"
-                                        Width="Auto"
-                                        Binding="{Binding Id}"/>
-
-                    <DataGridTextColumn Header="Surname"
-                                        IsReadOnly="True"
-                                        Width="*"
-                                        Binding="{Binding Surname}"/>
-                    
-                    <DataGridTextColumn Header="Name"
-                                        IsReadOnly="True"
-                                        Width="*"
-                                        Binding="{Binding Name}"/>
-                    
-                    <DataGridTextColumn Header="Patronymic"
-                                        IsReadOnly="True"
-                                        Width="*"
-                                        Binding="{Binding Patronymic}"/>
-
-                    <DataGridTextColumn Header="Gender"
-                                        IsReadOnly="True"
-                                        CanUserResize="True"
-                                        Width="*"
-                                        Binding="{Binding Gender}"/>
-                    
-                    <DataGridTextColumn Header="Status"
-                                        IsReadOnly="True"
-                                        Width="*"
-                                        Binding="{Binding Status}"/>
-
-                    <DataGridTextColumn Header="Military"
-                                        IsReadOnly="True"
-                                        CanUserResize="True"
-                                        Width="*"
-                                        Binding="{Binding MilitaryRegistration}"/>
-
-                    <DataGridTextColumn Header="Department"
-                                        IsReadOnly="True"
-                                        CanUserResize="True"
-                                        Width="*"
-                                        Binding="{Binding DepartmentId}"/>
-                    
-                </DataGrid.Columns>
-            </DataGrid>
+            <ContentControl Content="{Binding CurrentView}" />
         </Border>
     </Grid>
 </UserControl>

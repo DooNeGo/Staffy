@@ -9,16 +9,26 @@ namespace CourseWork2.ViewModel;
 
 public class WorkersViewModel : IntegratedViewModel<WorkerRepository, WorkerModel>
 {
-    private UserControl _addWorkerView;
-    private UserControl _mainView;
+    private readonly UserControl _addWorkerView;
+
     private UserControl _currentView;
     
     public WorkersViewModel()
     {
         _addWorkerView    = new AddWorkerView();
+        DataGridView      = new DataGridWorkersView();
         ShowAddWorkerView = new ViewModelCommand(ExecuteShowAddWorkerView);
-        _currentView      = _mainView;
+        _currentView      = DataGridView;
+
+        DataGridView.DataContext = this;
+
+        ((AddWorkerViewModel)_addWorkerView.DataContext).BackButtonClick += () =>
+        {
+            CurrentView = DataGridView;
+        };
     }
+
+    public UserControl DataGridView { get; }
 
     public ICommand ShowAddWorkerView { get; }
 
@@ -34,6 +44,6 @@ public class WorkersViewModel : IntegratedViewModel<WorkerRepository, WorkerMode
 
     private void ExecuteShowAddWorkerView(object? obj)
     {
-        throw new NotImplementedException();
+        CurrentView = _addWorkerView;
     }
 }

@@ -22,7 +22,7 @@
     
     <Border CornerRadius="10"
             BorderThickness="1"
-            BorderBrush="{StaticResource BorderBrush}">
+            BorderBrush="{StaticResource DefaultBorderBrush}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />

@@ -41,7 +41,7 @@
         <Border CornerRadius="8"
                 Opacity="0.95"
                 BorderThickness="1"
-                BorderBrush="{StaticResource BorderBrush}">
+                BorderBrush="{StaticResource DefaultBorderBrush}">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0, 1"
                                      EndPoint="1, 0">

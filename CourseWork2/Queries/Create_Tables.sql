@@ -19,43 +19,45 @@ CREATE TABLE IF NOT EXISTS workers
     status                VARCHAR(8)  NOT NULL CHECK (status IN ('Accepted', 'Fired', 'Retired')),
     military_registration BOOLEAN     NOT NULL,
     department_id         INT         NOT NULL,
-    FOREIGN KEY (department_id) REFERENCES departments (id) ON DELETE CASCADE
+    FOREIGN KEY (department_id) REFERENCES departments (id) ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS positions
 (
-    id     INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name   VARCHAR(100)   NOT NULL UNIQUE,
-    salary DECIMAL(12, 2) NOT NULL
+    id            INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name          VARCHAR(100)   NOT NULL UNIQUE,
+    salary        DECIMAL(12, 2) NOT NULL,
+    department_id INT            NOT NULL,
+    FOREIGN KEY (department_id) REFERENCES departments (id) ON DELETE NO ACTION 
 );
 
 CREATE TABLE IF NOT EXISTS accepted_workers
 (
     id            INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    worker_id     INT            NOT NULL UNIQUE,
+    worker_id     INT            NOT NULL,
     accept_date   DATE           NOT NULL,
     position_id   INT            NOT NULL,
     actual_salary DECIMAL(12, 2) NOT NULL,
-    FOREIGN KEY (worker_id) REFERENCES workers (id) ON DELETE CASCADE,
-    FOREIGN KEY (position_id) REFERENCES positions (id) ON DELETE CASCADE
+    FOREIGN KEY (worker_id) REFERENCES workers (id) ON DELETE NO ACTION,
+    FOREIGN KEY (position_id) REFERENCES positions (id) ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS fired_workers
 (
     id          INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    worker_id   INT  NOT NULL UNIQUE,
+    worker_id   INT  NOT NULL,
     fire_date   DATE NOT NULL,
     fire_reason TEXT NULL,
-    FOREIGN KEY (worker_id) REFERENCES workers (id) ON DELETE CASCADE
+    FOREIGN KEY (worker_id) REFERENCES workers (id) ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS retired_workers
 (
     id          INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    worker_id   INT            NOT NULL UNIQUE,
+    worker_id   INT            NOT NULL,
     retire_date DATE           NOT NULL,
     pension     DECIMAL(12, 2) NOT NULL,
-    FOREIGN KEY (worker_id) REFERENCES workers (id) ON DELETE CASCADE
+    FOREIGN KEY (worker_id) REFERENCES workers (id) ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS users

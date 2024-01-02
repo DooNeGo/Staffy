@@ -8,6 +8,8 @@ public class PositionModel : IDataModel
 
     public decimal Salary { get; set; }
 
+    public string Department { get; set; } = string.Empty;
+
     public override bool Equals(object? obj)
     {
         return obj is PositionModel position

@@ -29,14 +29,19 @@ public class WorkerRepository : RepositoryBase<WorkerModel>, IWorkerRepository
 
         DeleteCommand = new MySqlCommand("DELETE FROM workers WHERE id=@id");
         DeleteCommand.Parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32));
+        
+        AddCommand = new MySqlCommand("INSERT INTO workers (surname, name, patronymic, gender, status, military_registration, department_id)" +
+                                      "VALUE (@surname, @name, @patronymic, @gender, @status, @military, @department_id)");
+        AddCommand.Parameters.Add(new MySqlParameter("@surname", MySqlDbType.VarChar));
+        AddCommand.Parameters.Add(new MySqlParameter("@name", MySqlDbType.VarChar));
+        AddCommand.Parameters.Add(new MySqlParameter("@patronymic", MySqlDbType.VarChar));
+        AddCommand.Parameters.Add(new MySqlParameter("@gender", MySqlDbType.VarChar));
+        AddCommand.Parameters.Add(new MySqlParameter("@status", MySqlDbType.VarChar));
+        AddCommand.Parameters.Add(new MySqlParameter("@military", MySqlDbType.UInt16));
+        AddCommand.Parameters.Add(new MySqlParameter("@department_id", MySqlDbType.Int32));
     }
 
-    public Task Add(WorkerModel worker)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task Edit(WorkerModel worker)
+    public Task EditAsync(WorkerModel worker)
     {
         throw new NotImplementedException();
     }

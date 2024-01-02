@@ -1,9 +1,17 @@
-﻿using CourseWork2.ViewModel.Abstractions;
+﻿using System.Windows.Input;
+using CourseWork2.Model;
+using CourseWork2.Repositories;
+using CourseWork2.ViewModel.Abstractions;
 
 namespace CourseWork2.ViewModel;
 
 public class AddWorkerViewModel : ViewModelBase
 {
+    public event Action? BackButtonClick;
+    
+    private readonly WorkerRepository     _workerRepository     = new();
+    private readonly DepartmentRepository _departmentRepository = new();
+    
     private string _surname    = string.Empty;
     private string _name       = string.Empty;
     private string _patronymic = string.Empty;
@@ -20,6 +28,21 @@ public class AddWorkerViewModel : ViewModelBase
     private string? _militaryRegistrationError;
     private string? _departmentError;
 
+    private readonly string[] _statuses;
+    private readonly string[] _genders;
+
+    public AddWorkerViewModel()
+    {
+        AddWorkerCommand       = new ViewModelCommand(ExecuteAddWorkerCommand, CanExecuteAddWorkerCommand);
+        BackButtonClickCommand = new ViewModelCommand(ExecuteBackButtonClickCommand);
+        _statuses              = ["Accepted", "Fired", "Retired"];
+        _genders               = ["Male", "Female"];
+    }
+
+    public ICommand AddWorkerCommand { get; }
+    
+    public ICommand BackButtonClickCommand { get; }
+    
     #region Propperties
     
     public string Surname
@@ -163,6 +186,70 @@ public class AddWorkerViewModel : ViewModelBase
     }
     
     #endregion
+
+    private bool IsValidSurname()
+    {
+        return !string.IsNullOrEmpty(Surname) &&
+               Surname.Length >= 2;
+    }
     
+    private bool IsValidName()
+    {
+        return !string.IsNullOrEmpty(Name) &&
+               Name.Length >= 2;
+    }
     
+    private bool IsValidPatronymic()
+    {
+        return !string.IsNullOrEmpty(Patronymic) &&
+               Patronymic.Length >= 2;
+    }
+    
+    private bool IsValidGender()
+    {
+        return !string.IsNullOrEmpty(Gender) &&
+               _genders.Contains(Gender);
+    }
+    
+    private bool IsValidStatus()
+    {
+        return !string.IsNullOrEmpty(Status) &&
+               _statuses.Contains(Status);
+    }
+    
+    private bool IsValidDepartment()
+    {
+        return !string.IsNullOrEmpty(Department) &&
+               _departmentRepository.GetByNameAsync(Department).GetAwaiter().GetResult() is not null;
+    }
+    
+    private bool CanExecuteAddWorkerCommand(object? obj)
+    {
+        return IsValidSurname()    &&
+               IsValidName()       &&
+               IsValidPatronymic() &&
+               IsValidGender()     &&
+               IsValidStatus()     &&
+               IsValidDepartment();
+    }
+
+    private async void ExecuteAddWorkerCommand(object? obj)
+    {
+        var worker = new WorkerModel
+        {
+            Surname = Surname,
+            Name = Name,
+            Patronymic = Patronymic,
+            Gender = Gender,
+            Status = Status,
+            MilitaryRegistration = MilitaryRegistration,
+            Department = (await _departmentRepository.GetByNameAsync(Department))!
+        };
+        _workerRepository.AddAsync(worker);
+    }
+    
+    private void ExecuteBackButtonClickCommand(object? obj)
+    {
+        BackButtonClick?.Invoke();
+    }
 }

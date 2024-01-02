@@ -25,6 +25,8 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
     protected MySqlCommand GetAllCommand { get; set; }
 
     protected MySqlCommand GetAllByStringCommand { get; set; }
+    
+    protected MySqlCommand AddCommand { get; set; }
 
     public async ValueTask DisposeAsync()
     {
@@ -55,6 +57,18 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
         return await GetAllAsync(GetAllCommand, []);
     }
 
+    public async Task AddAsync(T item)
+    {
+        PropertyInfo[] properties = typeof(T).GetProperties();
+        var parameters = new object?[properties.Length];
+        for (var i = 0; i < properties.Length; i++)
+        {
+            parameters[i] = properties[i].GetValue(item);
+        }
+
+        await ExecuteCommandAsync(AddCommand, parameters);
+    }
+
     public async Task<List<T>> GetAllByStringAsync(string text)
     {
         return await GetAllAsync(GetAllByStringCommand, [text]);
@@ -65,21 +79,21 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
         return new MySqlConnection(ConnectionString);
     }
 
-    protected async Task<List<T>> GetAllAsync(MySqlCommand command, object[] parameters)
+    protected async Task<List<T>> GetAllAsync(MySqlCommand command, object?[] parameters)
     {
         await PrepareCommand(command, parameters);
         await using DbDataReader reader = await command.ExecuteReaderAsync();
         return GetInstancesList(reader);
     }
 
-    protected async Task<T?> GetValueAsync(MySqlCommand command, object[] parameters)
+    protected async Task<T?> GetValueAsync(MySqlCommand command, object?[] parameters)
     {
         await PrepareCommand(command, parameters);
         await using DbDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.SingleRow);
         return !await reader.ReadAsync() ? default(T?) : GetInstance(reader);
     }
 
-    protected async Task<int> ExecuteCommandAsync(MySqlCommand command, object[] parameters)
+    protected async Task<int> ExecuteCommandAsync(MySqlCommand command, object?[] parameters)
     {
         await PrepareCommand(command, parameters);
         int rowsNumber = await command.ExecuteNonQueryAsync();
@@ -112,7 +126,7 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
         return list;
     }
 
-    private async Task PrepareCommand(MySqlCommand command, IReadOnlyList<object> parameters)
+    private async Task PrepareCommand(MySqlCommand command, IReadOnlyList<object?> parameters)
     {
         if (_connection.State is not ConnectionState.Open)
         {

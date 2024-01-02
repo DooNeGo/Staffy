@@ -1,83 +1,52 @@
 ﻿USE courseworkdb;
 
 INSERT INTO departments (name, address, phone)
-VALUES ('Research and Development', 'Building 99, 14820 NE 36th Street, Redmond, WA 98052, USA', '+1-425-703-6214'),
-       ('Marketing', 'Building 17, 16011 NE 36th Way, Redmond, WA 98052, USA', '+1-425-882-8080'),
-       ('Engineering', '1600 Amphitheatre Parkway, Mountain View, CA 94043, USA', '+1-650-253-0000'),
-       ('Sales', '345 Spear Street, San Francisco, CA 94105, USA', '+1-415-736-0000'),
-       ('Design', 'One Apple Park Way, Cupertino, CA 95014, USA', '+1-408-996-1010'),
-       ('Customer Service', '12545 Riata Vista Circle, Austin, TX 78727, USA', '+1-512-674-2000'),
-       ('Operations', '410 Terry Avenue North, Seattle, WA 98109, USA', '+1-206-266-1000'),
-       ('Finance', '2021 7th Avenue, Seattle, WA 98121, USA', '+1-206-266-1000'),
-       ('Product', '1 Hacker Way, Menlo Park, CA 94025, USA', '+1-650-543-4800'),
-       ('Legal', '1601 Willow Road, Menlo Park, CA 94025, USA', '+1-650-308-7300');
+VALUES ('Отдел кадров', 'ул. Ленина, 12', '+375 29 123 45 67'),
+       ('Бухгалтерия', 'ул. Советская, 34', '+375 29 765 43 21'),
+       ('Отдел продаж', 'ул. Пушкина, 56', '+375 29 456 78 90'),
+       ('Отдел разработки', 'ул. Гагарина, 78', '+375 29 987 65 43'),
+       ('Отдел маркетинга', 'ул. Кирова, 90', '+375 29 654 32 10');
 
 INSERT INTO workers (surname, name, patronymic, gender, status, military_registration, department_id)
-VALUES ('Smith', 'John', 'Michael', 'Male', 'Accepted', TRUE, 1),
-       ('Johnson', 'Mary', 'Elizabeth', 'Female', 'Accepted', FALSE, 2),
-       ('Lee', 'David', 'Chang', 'Male', 'Accepted', TRUE, 3),
-       ('Chen', 'Lily', 'Mei', 'Female', 'Accepted', FALSE, 4),
-       ('Garcia', 'Carlos', 'Jose', 'Male', 'Accepted', TRUE, 5),
-       ('Rodriguez', 'Maria', 'Luisa', 'Female', 'Accepted', FALSE, 6),
-       ('Patel', 'Raj', 'Kumar', 'Male', 'Accepted', TRUE, 7),
-       ('Singh', 'Priya', 'Kaur', 'Female', 'Accepted', FALSE, 8),
-       ('Miller', 'James', 'Robert', 'Male', 'Accepted', TRUE, 9),
-       ('Williams', 'Emma', 'Grace', 'Female', 'Accepted', FALSE, 10),
-       ('Brown', 'Daniel', 'Thomas', 'Male', 'Fired', TRUE, 1),
-       ('Jones', 'Anna', 'Sophia', 'Female', 'Fired', FALSE, 2),
-       ('Kim', 'Min', 'Ji', 'Female', 'Fired', FALSE, 3),
-       ('Wang', 'Wei', 'Jun', 'Male', 'Fired', TRUE, 4),
-       ('Lopez', 'Pedro', 'Miguel', 'Male', 'Fired', TRUE, 5),
-       ('Gonzalez', 'Sofia', 'Isabel', 'Female', 'Fired', FALSE, 6),
-       ('Shah', 'Vikas', 'Anil', 'Male', 'Fired', TRUE, 7),
-       ('Khan', 'Zara', 'Fatima', 'Female', 'Fired', FALSE, 8),
-       ('Davis', 'William', 'Henry', 'Male', 'Fired', TRUE, 9),
-       ('Taylor', 'Emily', 'Rose', 'Female', 'Fired', FALSE, 10),
-       ('Wilson', 'Jack', 'Edward', 'Male', 'Retired', TRUE, 1),
-       ('Clark', 'Olivia', 'Evelyn', 'Female', 'Retired', FALSE, 2),
-       ('Park', 'Jin', 'Woo', 'Male', 'Retired', TRUE, 3),
-       ('Li', 'Xiao', 'Yan', 'Female', 'Retired', FALSE, 4),
-       ('Martinez', 'Juan', 'Carlos', 'Male', 'Retired', TRUE, 5);
+VALUES ('Иванов', 'Иван', 'Иванович', 'Male', 'Accepted', TRUE, 1),
+       ('Петров', 'Петр', 'Петрович', 'Male', 'Fired', TRUE, 2),
+       ('Сидоров', 'Сидор', 'Сидорович', 'Male', 'Retired', TRUE, 3),
+       ('Смирнова', 'Анна', 'Алексеевна', 'Female', 'Accepted', FALSE, 4),
+       ('Кузнецова', 'Елена', 'Ивановна', 'Female', 'Accepted', FALSE, 5),
+       ('Попов', 'Алексей', 'Николаевич', 'Male', 'Fired', TRUE, 1),
+       ('Соколов', 'Николай', 'Алексеевич', 'Male', 'Retired', TRUE, 2),
+       ('Новикова', 'Мария', 'Петровна', 'Female', 'Accepted', FALSE, 3),
+       ('Морозова', 'Ольга', 'Сергеевна', 'Female', 'Accepted', FALSE, 4),
+       ('Волков', 'Сергей', 'Иванович', 'Male', 'Accepted', TRUE, 5);
 
-INSERT INTO positions (name, salary)
-VALUES ('Software Engineer', 100000.00),
-       ('Marketing Manager', 80000.00),
-       ('Web Developer', 60000.00),
-       ('Sales Representative', 50000.00),
-       ('Graphic Designer', 40000.00),
-       ('Customer Service Agent', 30000.00),
-       ('Operations Manager', 90000.00),
-       ('Financial Analyst', 70000.00),
-       ('Product Manager', 120000.00),
-       ('Lawyer', 150000.00);
+INSERT INTO positions (name, salary, department_id)
+VALUES ('Начальник отдела кадров', 2000.00, 1),
+       ('Специалист по подбору персонала', 1500.00, 1),
+       ('Главный бухгалтер', 2500.00, 2),
+       ('Бухгалтер', 1800.00, 2),
+       ('Менеджер по продажам', 1700.00, 3),
+       ('Продавец-консультант', 1200.00, 3),
+       ('Ведущий разработчик', 3000.00, 4),
+       ('Разработчик', 2200.00, 4),
+       ('Маркетолог', 1900.00, 5),
+       ('Дизайнер', 1600.00, 5);
 
 INSERT INTO accepted_workers (worker_id, accept_date, position_id, actual_salary)
-VALUES (1, '2023-01-01', 1, 105000.00),
-       (2, '2023-01-02', 2, 85000.00),
-       (3, '2023-01-03', 3, 65000.00),
-       (4, '2023-01-04', 4, 55000.00),
-       (5, '2023-01-05', 5, 45000.00),
-       (6, '2023-01-06', 6, 35000.00),
-       (7, '2023-01-07', 7, 95000.00),
-       (8, '2023-01-08', 8, 75000.00),
-       (9, '2023-01-09', 9, 125000.00),
-       (10, '2023-01-10', 10, 155000.00);
+VALUES (1, '2021-01-01', 1, 2100.00),
+       (2, '2021-01-03', 3, 2400.00),
+       (3, '2021-01-05', 5, 1700.00),
+       (4, '2021-01-15', 8, 2200.00),
+       (5, '2021-01-20', 10, 1600.00),
+       (6, '2021-01-21', 2, 1700.00),
+       (7, '2021-01-22', 4, 1800.00),
+       (8, '2021-01-24', 6, 1000.00),
+       (9, '2021-01-26', 7, 3000.00),
+       (10, '2021-02-10', 9, 1900.00);
 
 INSERT INTO fired_workers (worker_id, fire_date, fire_reason)
-VALUES (11, '2023-03-01', 'Poor performance'),
-       (12, '2023-03-02', 'Violation of company policy'),
-       (13, '2023-03-03', 'Lack of skills'),
-       (14, '2023-03-04', 'Redundancy'),
-       (15, '2023-03-05', 'Misconduct'),
-       (16, '2023-03-06', 'Harassment'),
-       (17, '2023-03-07', 'Fraud'),
-       (18, '2023-03-08', 'Theft'),
-       (19, '2023-03-09', 'Insubordination'),
-       (20, '2023-03-10', 'Conflict of interest');
+VALUES (2, '2021-01-31', 'Нарушение трудовой дисциплины'),
+       (6, '2021-02-15', 'Сокращение штата');
 
 INSERT INTO retired_workers (worker_id, retire_date, pension)
-VALUES (21, '2023-02-01', 50000.00),
-       (22, '2023-02-02', 40000.00),
-       (23, '2023-02-03', 30000.00),
-       (24, '2023-02-04', 20000.00),
-       (25, '2023-02-05', 10000.00);
+VALUES (3, '2021-01-30', 800.00),
+       (7, '2021-02-28', 900.00);

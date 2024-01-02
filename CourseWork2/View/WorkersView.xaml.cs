@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using CourseWork2.ViewModel;
 
 namespace CourseWork2.View;
 
@@ -24,6 +25,6 @@ public partial class WorkersView
 
     private void WorkersView_OnMouseDown(object sender, MouseButtonEventArgs e)
     {
-        DataGrid.SelectedItem = null;
+        
     }
 }
