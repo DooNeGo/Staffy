@@ -27,10 +27,11 @@ public class AcceptedWorkersRepository : RepositoryBase<AcceptedWorkerModel>
                                                  "OR LOCATE(@string, w.name) > 0 OR LOCATE(w.name, @string) > 0 " +
                                                  "OR LOCATE(@string, w.patronymic) > 0 OR LOCATE(w.patronymic, @string) > 0 " +
                                                  "OR LOCATE(@string, p.name) > 0 OR LOCATE(p.name, @string) > 0 " +
-                                                 "OR @string = DATE_FORMAT(a.accept_date, '%d/%m/%Y') OR @string = a.actual_salary)");
+                                                 "OR @string = DATE_FORMAT(a.accept_date, '%Y') OR @string = DATE_FORMAT(a.accept_date, '%m') " +
+                                                 "OR @string = DATE_FORMAT(a.accept_date, '%d') OR @string = a.actual_salary)");
         GetAllByStringCommand.Parameters.Add(new MySqlParameter("@string", MySqlDbType.VarChar));
 
-        DeleteCommand = new MySqlCommand("DELETE FROM accepted_workers WHERE id=@id");
+        DeleteCommand = new MySqlCommand("DELETE FROM accepted_workers WHERE id = @id");
         DeleteCommand.Parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32));
     }
 }

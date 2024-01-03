@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace CourseWork2.Repositories;
 
-public class RetiredWorkersRepository : RepositoryBase<RetiredWorkersModel>
+public class RetiredWorkersRepository : RepositoryBase<RetiredWorkerModel>
 {
     public RetiredWorkersRepository()
     {

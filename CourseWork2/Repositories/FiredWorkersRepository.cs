@@ -26,8 +26,8 @@ public class FiredWorkersRepository : RepositoryBase<FiredWorkerModel>
                                                  "OR LOCATE(@string, w.surname) > 0 OR LOCATE(w.surname, @string) > 0 " +
                                                  "OR LOCATE(@string, w.name) > 0 OR LOCATE(w.name, @string) > 0 " +
                                                  "OR LOCATE(@string, w.patronymic) > 0 OR LOCATE(w.patronymic, @string) > 0 " +
-                                                 "OR @string = DATE_FORMAT(a.fire_date, '%d/%m/%Y') " +
-                                                 "OR @string = DATE_FORMAT(a.fire_date, '%Y'))");
+                                                 "OR @string = DATE_FORMAT(a.fire_date, '%Y') OR @string = DATE_FORMAT(a.fire_date, '%m') " +
+                                                 "OR @string = DATE_FORMAT(a.fire_date, '%d') OR @string = DATE_FORMAT(a.fire_date, '%Y'))");
         GetAllByStringCommand.Parameters.Add(new MySqlParameter("@string", MySqlDbType.VarChar));
 
         DeleteCommand = new MySqlCommand("DELETE FROM fired_workers WHERE id=@id");

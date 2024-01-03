@@ -3,6 +3,6 @@ using CourseWork2.Repositories;
 
 namespace CourseWork2.ViewModel;
 
-public class RetiredWorkersViewModel : IntegratedViewModel<RetiredWorkersRepository, RetiredWorkersModel>
+public class RetiredWorkersViewModel : IntegratedViewModel<RetiredWorkersRepository, RetiredWorkerModel>
 {
 }

@@ -1,37 +1,43 @@
-CREATE DATABASE IF NOT EXISTS courseworkdb;
 USE courseworkdb;
 
-CREATE TABLE IF NOT EXISTS departments
+DROP TABLE IF EXISTS accepted_workers;
+DROP TABLE IF EXISTS fired_workers;
+DROP TABLE IF EXISTS retired_workers;
+DROP TABLE IF EXISTS positions;
+DROP TABLE IF EXISTS workers;
+DROP TABLE IF EXISTS departments;
+
+CREATE TABLE departments
 (
     id      INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name    VARCHAR(30)  NOT NULL UNIQUE,
     address VARCHAR(100) NULL,
-    phone   VARCHAR(20)  NULL
+    phone   VARCHAR(13)  NULL
 );
 
-CREATE TABLE IF NOT EXISTS workers
+CREATE TABLE workers
 (
     id                    INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
     surname               VARCHAR(30) NOT NULL,
     name                  VARCHAR(30) NOT NULL,
     patronymic            VARCHAR(30) NULL,
     gender                VARCHAR(6)  NOT NULL CHECK (gender IN ('Male', 'Female')),
-    status                VARCHAR(8)  NOT NULL CHECK (status IN ('Accepted', 'Fired', 'Retired')),
+    status                VARCHAR(7)  NOT NULL CHECK (status IN ('Hired', 'Fired', 'Retired')),
     military_registration BOOLEAN     NOT NULL,
     department_id         INT         NOT NULL,
     FOREIGN KEY (department_id) REFERENCES departments (id) ON DELETE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS positions
+CREATE TABLE positions
 (
     id            INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name          VARCHAR(100)   NOT NULL UNIQUE,
     salary        DECIMAL(12, 2) NOT NULL,
     department_id INT            NOT NULL,
-    FOREIGN KEY (department_id) REFERENCES departments (id) ON DELETE NO ACTION 
+    FOREIGN KEY (department_id) REFERENCES departments (id) ON DELETE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS accepted_workers
+CREATE TABLE accepted_workers
 (
     id            INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
     worker_id     INT            NOT NULL,
@@ -42,7 +48,7 @@ CREATE TABLE IF NOT EXISTS accepted_workers
     FOREIGN KEY (position_id) REFERENCES positions (id) ON DELETE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS fired_workers
+CREATE TABLE fired_workers
 (
     id          INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
     worker_id   INT  NOT NULL,
@@ -51,7 +57,7 @@ CREATE TABLE IF NOT EXISTS fired_workers
     FOREIGN KEY (worker_id) REFERENCES workers (id) ON DELETE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS retired_workers
+CREATE TABLE retired_workers
 (
     id          INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
     worker_id   INT            NOT NULL,

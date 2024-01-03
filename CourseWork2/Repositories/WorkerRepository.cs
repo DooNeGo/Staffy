@@ -45,4 +45,6 @@ public class WorkerRepository : RepositoryBase<WorkerModel>, IWorkerRepository
     {
         throw new NotImplementedException();
     }
+    
+    //TODO: Переписать все запросы, чтобы было LEFT JOIN, для отображение всех данных таблицы
 }
