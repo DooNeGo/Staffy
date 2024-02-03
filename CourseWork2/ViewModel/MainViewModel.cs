@@ -3,7 +3,6 @@ using System.Collections.Immutable;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CourseWork2.Model;
-using CourseWork2.Repositories;
 using CourseWork2.View;
 using CourseWork2.ViewModel.Abstractions;
 using FontAwesome.Sharp;
@@ -12,19 +11,16 @@ namespace CourseWork2.ViewModel;
 
 public class MainViewModel : ViewModelBase
 {
-    private readonly UserRepository                   _userRepository;
     private readonly FrozenDictionary<Type, ViewData> _viewsData;
 
-    private string           _caption;
-    private UserControl      _currentChildView;
-    private UserModel        _currentUser;
-    private UserAccountModel _currentUserAccount;
-    private IconChar         _icon;
+    private string      _caption = string.Empty;
+    private UserControl _currentChildView;
+    private UserModel   _currentUser;
+    private IconChar    _icon;
 
-    public MainViewModel()
+    public MainViewModel(UserModel user)
     {
-        _userRepository     = new UserRepository();
-        _currentUserAccount = new UserAccountModel();
+        CurrentUser = user;
 
         ShowHomeViewCommand            = new ViewModelCommand(ExecuteShowHomeViewCommand);
         ShowDepartmentsViewCommand     = new ViewModelCommand(ExecuteShowDepartmentsViewCommand);
@@ -47,7 +43,6 @@ public class MainViewModel : ViewModelBase
 
         _viewsData = viewsData.ToFrozenDictionary();
         
-        LoadCurrentUserModel();
         LoadViewModelsData();
         ExecuteShowDepartmentsViewCommand(null);
     }
@@ -66,13 +61,13 @@ public class MainViewModel : ViewModelBase
     
     public ICommand ShowRetiredWorkersViewCommand { get; }
 
-    public UserAccountModel CurrentUserAccount
+    public UserModel CurrentUser
     {
-        get => _currentUserAccount;
+        get => _currentUser;
         set
         {
-            _currentUserAccount = value ?? throw new ArgumentNullException(nameof(value));
-            InvokePropertyChanged(nameof(CurrentUserAccount));
+            _currentUser = value;
+            InvokePropertyChanged(nameof(CurrentUser));
         }
     }
 
@@ -81,7 +76,7 @@ public class MainViewModel : ViewModelBase
         get => _currentChildView;
         set
         {
-            _currentChildView = value ?? throw new ArgumentNullException(nameof(value));
+            _currentChildView = value;
             InvokePropertyChanged(nameof(CurrentChildView));
         }
     }
@@ -91,7 +86,7 @@ public class MainViewModel : ViewModelBase
         get => _caption;
         set
         {
-            _caption = value ?? throw new ArgumentNullException(nameof(value));
+            _caption = value;
             InvokePropertyChanged(nameof(Caption));
         }
     }
@@ -104,17 +99,6 @@ public class MainViewModel : ViewModelBase
             _icon = value;
             InvokePropertyChanged(nameof(Icon));
         }
-    }
-
-    public async void LoadCurrentUserModel()
-    {
-        _currentUser = await _userRepository.GetByUsernameAsync(Thread.CurrentPrincipal!.Identity!.Name!)
-                       ?? throw new NullReferenceException("No such username in repository");
-        CurrentUserAccount = new UserAccountModel
-        {
-            Username       = _currentUser.Username,
-            ProfilePicture = null
-        };
     }
 
     public void LoadViewModelsData()

@@ -9,24 +9,19 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
 {
     private const string ConnectionString = "Server=localhost;Database=CourseWorkDB;Uid=user;Pwd=1111;";
 
-    private readonly MySqlConnection _connection;
+    private readonly MySqlConnection _connection = new(ConnectionString);
 
     private bool _isDisposed;
 
-    protected RepositoryBase()
-    {
-        _connection = new MySqlConnection(ConnectionString);
-    }
+    protected MySqlCommand GetByIdCommand { get; set; } = new();
 
-    protected MySqlCommand GetByIdCommand { get; set; }
+    protected MySqlCommand DeleteCommand { get; set; } = new();
 
-    protected MySqlCommand DeleteCommand { get; set; }
+    protected MySqlCommand GetAllCommand { get; set; } = new();
 
-    protected MySqlCommand GetAllCommand { get; set; }
+    protected MySqlCommand GetAllByStringCommand { get; set; } = new();
 
-    protected MySqlCommand GetAllByStringCommand { get; set; }
-    
-    protected MySqlCommand AddCommand { get; set; }
+    protected MySqlCommand AddCommand { get; set; } = new();
 
     public async ValueTask DisposeAsync()
     {
@@ -42,36 +37,32 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
 
     public event Action? RepositoryChanged;
 
-    public async Task<T?> GetByIdAsync(int id)
+    public Task<T?> GetByIdAsync(int id)
     {
-        return await GetValueAsync(GetByIdCommand, [id]);
+        return GetValueAsync(GetByIdCommand, [id]);
     }
 
-    public async Task RemoveAsync(int id)
+    public Task RemoveAsync(int id)
     {
-        await ExecuteCommandAsync(DeleteCommand, [id]);
+        return ExecuteCommandAsync(DeleteCommand, [id]);
     }
 
-    public async Task<List<T>> GetAllAsync()
+    public Task<List<T>> GetAllAsync()
     {
-        return await GetAllAsync(GetAllCommand, []);
+        return GetAllAsync(GetAllCommand, []);
     }
 
-    public async Task AddAsync(T item)
+    public Task AddAsync(T item)
     {
         PropertyInfo[] properties = typeof(T).GetProperties();
-        var parameters = new object?[properties.Length];
-        for (var i = 0; i < properties.Length; i++)
-        {
-            parameters[i] = properties[i].GetValue(item);
-        }
-
-        await ExecuteCommandAsync(AddCommand, parameters);
+        IEnumerable<object> result = from property in properties
+                                     select property.GetValue(item);
+        return ExecuteCommandAsync(AddCommand, result.ToArray());
     }
 
-    public async Task<List<T>> GetAllByStringAsync(string text)
+    public Task<List<T>> GetAllByStringAsync(string text)
     {
-        return await GetAllAsync(GetAllByStringCommand, [text]);
+        return GetAllAsync(GetAllByStringCommand, [text]);
     }
 
     protected static MySqlConnection GetConnection()
@@ -128,17 +119,18 @@ public abstract class RepositoryBase<T> : IAsyncDisposable, IDisposable where T 
 
     private async Task PrepareCommand(MySqlCommand command, IReadOnlyList<object?> parameters)
     {
-        if (_connection.State is not ConnectionState.Open)
-        {
-            await _connection.OpenAsync();
-        }
-
         if (command.Parameters.Count != parameters.Count)
         {
             throw new Exception("Invalid number of parameters");
         }
 
+        if (_connection.State is not ConnectionState.Open)
+        {
+            await _connection.OpenAsync();
+        }
+
         command.Connection = _connection;
+
         for (var i = 0; i < parameters.Count; i++)
         {
             command.Parameters[i].Value = parameters[i];

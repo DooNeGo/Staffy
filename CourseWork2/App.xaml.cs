@@ -13,10 +13,13 @@ public partial class App
         var loginView      = new LoginView();
         var loginViewModel = (LoginViewModel)loginView.DataContext;
         
-        loginViewModel.LoginSuccess += () =>
+        loginViewModel.LoginSuccess += user =>
         {
-            var mainView = new MainView();
-            
+            var mainView = new MainView()
+            {
+                DataContext = new MainViewModel(user)
+            };
+
             loginView.Close();
             mainView.Show();
         };

@@ -23,23 +23,18 @@ public class UserRepository : RepositoryBase<UserModel>, IUserRepository
 
     private MySqlCommand AuthUserCommand { get; }
 
-    public async Task<bool> AuthenticateUserAsync(NetworkCredential credential)
+    public Task<UserModel?> AuthenticateUserAsync(NetworkCredential credential)
     {
-        return await GetValueAsync(AuthUserCommand, [credential.UserName, credential.Password]) is not null;
+        return GetValueAsync(AuthUserCommand, [credential.UserName, credential.Password]);
     }
 
-    public async Task AddAsync(UserModel user)
+    public Task EditAsync(UserModel user)
     {
         throw new NotImplementedException();
     }
 
-    public async Task EditAsync(UserModel user)
+    public Task<UserModel?> GetByUsernameAsync(string username)
     {
-        throw new NotImplementedException();
-    }
-
-    public async Task<UserModel?> GetByUsernameAsync(string username)
-    {
-        return await GetValueAsync(GetByUsernameCommand, [username]);
+        return GetValueAsync(GetByUsernameCommand, [username]);
     }
 }

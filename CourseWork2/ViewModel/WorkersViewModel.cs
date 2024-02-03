@@ -37,7 +37,7 @@ public class WorkersViewModel : IntegratedViewModel<WorkerRepository, WorkerMode
         get => _currentView;
         set
         {
-            _currentView = value ?? throw new ArgumentNullException(nameof(value));
+            _currentView = value;
             InvokePropertyChanged(nameof(CurrentView));
         }
     }

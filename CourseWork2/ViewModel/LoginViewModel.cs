@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Security;
-using System.Security.Principal;
 using System.Windows.Input;
+using CourseWork2.Model;
 using CourseWork2.Repositories;
 using CourseWork2.ViewModel.Abstractions;
 
@@ -71,7 +71,7 @@ public class LoginViewModel : ViewModelBase
 
     public ICommand RememberPasswordCommand { get; }
 
-    public event Action? LoginSuccess;
+    public event Action<UserModel>? LoginSuccess;
 
     private bool CanExecuteLoginCommand(object? obj)
     {
@@ -82,15 +82,14 @@ public class LoginViewModel : ViewModelBase
 
     private async void ExecuteLoginCommand(object? obj)
     {
-        bool result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
-        if (result)
+        UserModel? result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
+        if (result is null)
         {
-            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-            LoginSuccess?.Invoke();
+            ErrorMessage = "Invalid Username or Password";
         }
         else
         {
-            ErrorMessage = "Invalid Username or Password";
+            LoginSuccess?.Invoke(result);
         }
     }
 

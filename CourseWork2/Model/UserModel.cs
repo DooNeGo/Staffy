@@ -10,6 +10,8 @@ public class UserModel : IDataModel
 
     public string Role { get; set; } = string.Empty;
 
+    //public byte[]? ProfilePicture { get; set; }
+
     public override bool Equals(object? obj)
     {
         return obj is UserModel user

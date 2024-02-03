@@ -15,10 +15,6 @@
         ResizeMode="CanResize"
         AllowsTransparency="True"
         Background="Transparent">
-
-    <Window.DataContext>
-        <viewModel:MainViewModel />
-    </Window.DataContext>
     
     <Border CornerRadius="10"
             BorderThickness="1"
@@ -251,7 +247,7 @@
                                               Style="{StaticResource IconButtonImage}"/>
                             </Button>
                             
-                            <TextBlock Text="{Binding CurrentUserAccount.Username}"
+                            <TextBlock Text="{Binding CurrentUser.Username}"
                                        Foreground="{StaticResource TitleFontColor}"
                                        FontFamily="{StaticResource MainFont}"
                                        FontWeight="Medium"

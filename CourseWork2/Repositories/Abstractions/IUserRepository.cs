@@ -5,7 +5,7 @@ namespace CourseWork2.Repositories.Abstractions;
 
 public interface IUserRepository
 {
-    public Task<bool> AuthenticateUserAsync(NetworkCredential credential);
+    public Task<UserModel?> AuthenticateUserAsync(NetworkCredential credential);
 
     public Task AddAsync(UserModel user);
 
