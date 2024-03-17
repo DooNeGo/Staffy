@@ -38,7 +38,7 @@ public class WorkersViewModel : IntegratedViewModel<WorkerRepository, WorkerMode
         set
         {
             _currentView = value;
-            InvokePropertyChanged(nameof(CurrentView));
+            OnPropertyChanged(nameof(CurrentView));
         }
     }
 

@@ -67,7 +67,7 @@ public class MainViewModel : ViewModelBase
         set
         {
             _currentUser = value;
-            InvokePropertyChanged(nameof(CurrentUser));
+            OnPropertyChanged(nameof(CurrentUser));
         }
     }
 
@@ -77,7 +77,7 @@ public class MainViewModel : ViewModelBase
         set
         {
             _currentChildView = value;
-            InvokePropertyChanged(nameof(CurrentChildView));
+            OnPropertyChanged(nameof(CurrentChildView));
         }
     }
 
@@ -87,7 +87,7 @@ public class MainViewModel : ViewModelBase
         set
         {
             _caption = value;
-            InvokePropertyChanged(nameof(Caption));
+            OnPropertyChanged(nameof(Caption));
         }
     }
 
@@ -97,7 +97,7 @@ public class MainViewModel : ViewModelBase
         set
         {
             _icon = value;
-            InvokePropertyChanged(nameof(Icon));
+            OnPropertyChanged(nameof(Icon));
         }
     }
 

@@ -1,9 +1,9 @@
-﻿using System.Net;
-using System.Security;
-using System.Windows.Input;
-using CourseWork2.Model;
+﻿using CourseWork2.Model;
 using CourseWork2.Repositories;
 using CourseWork2.ViewModel.Abstractions;
+using System.Net;
+using System.Security;
+using System.Windows.Input;
 
 namespace CourseWork2.ViewModel;
 
@@ -11,16 +11,16 @@ public class LoginViewModel : ViewModelBase
 {
     private readonly UserRepository _userRepository;
 
-    private string       _errorMessage  = string.Empty;
-    private bool         _isViewVisible = true;
-    private SecureString _password      = new();
-    private string       _username      = string.Empty;
+    private string _errorMessage = string.Empty;
+    private bool _isViewVisible = true;
+    private SecureString _password = new();
+    private string _username = string.Empty;
 
     public LoginViewModel()
     {
-        LoginCommand           = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+        LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
         RecoverPasswordCommand = new ViewModelCommand(_ => ExecuteRecoverPasswordCommand("", ""));
-        _userRepository        = new UserRepository();
+        _userRepository = new UserRepository();
     }
 
     public string Username
@@ -29,7 +29,7 @@ public class LoginViewModel : ViewModelBase
         set
         {
             _username = value;
-            InvokePropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(Username));
         }
     }
 
@@ -39,7 +39,7 @@ public class LoginViewModel : ViewModelBase
         set
         {
             _password = value;
-            InvokePropertyChanged(nameof(Password));
+            OnPropertyChanged(nameof(Password));
         }
     }
 
@@ -49,7 +49,7 @@ public class LoginViewModel : ViewModelBase
         set
         {
             _errorMessage = value;
-            InvokePropertyChanged(nameof(ErrorMessage));
+            OnPropertyChanged(nameof(ErrorMessage));
         }
     }
 
@@ -59,7 +59,7 @@ public class LoginViewModel : ViewModelBase
         set
         {
             _isViewVisible = value;
-            InvokePropertyChanged(nameof(IsViewVisible));
+            OnPropertyChanged(nameof(IsViewVisible));
         }
     }
 
@@ -82,14 +82,24 @@ public class LoginViewModel : ViewModelBase
 
     private async void ExecuteLoginCommand(object? obj)
     {
-        UserModel? result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
-        if (result is null)
+        ErrorMessage = string.Empty;
+
+        try
         {
-            ErrorMessage = "Invalid Username or Password";
+            UserModel? result = await _userRepository.AuthenticateUserAsync(new NetworkCredential(Username, Password));
+
+            if (result is null)
+            {
+                ErrorMessage = "Invalid Username or Password";
+            }
+            else
+            {
+                LoginSuccess?.Invoke(result);
+            }
         }
-        else
+        catch
         {
-            LoginSuccess?.Invoke(result);
+            ErrorMessage = "Connection Error";
         }
     }
 

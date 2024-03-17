@@ -51,7 +51,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _surname = value ?? throw new ArgumentNullException(nameof(value));
-            InvokePropertyChanged(nameof(Surname));
+            OnPropertyChanged(nameof(Surname));
         }
     }
 
@@ -61,7 +61,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _name = value ?? throw new ArgumentNullException(nameof(value));
-            InvokePropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Name));
         }
     }
 
@@ -71,7 +71,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _patronymic = value ?? throw new ArgumentNullException(nameof(value));
-            InvokePropertyChanged(nameof(Patronymic));
+            OnPropertyChanged(nameof(Patronymic));
         }
     }
 
@@ -81,7 +81,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _gender = value ?? throw new ArgumentNullException(nameof(value));
-            InvokePropertyChanged(nameof(Gender));
+            OnPropertyChanged(nameof(Gender));
         }
     }
 
@@ -91,7 +91,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _status = value ?? throw new ArgumentNullException(nameof(value));
-            InvokePropertyChanged(nameof(Status));
+            OnPropertyChanged(nameof(Status));
         }
     }
 
@@ -101,7 +101,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _militaryRegistration = value;
-            InvokePropertyChanged(nameof(MilitaryRegistration));
+            OnPropertyChanged(nameof(MilitaryRegistration));
         }
     }
 
@@ -111,7 +111,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _department = value ?? throw new ArgumentNullException(nameof(value));
-            InvokePropertyChanged(nameof(Department));
+            OnPropertyChanged(nameof(Department));
         }
     }
 
@@ -121,7 +121,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _surnameError = value;
-            InvokePropertyChanged(nameof(SurnameError));
+            OnPropertyChanged(nameof(SurnameError));
         }
     }
 
@@ -131,7 +131,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _nameError = value;
-            InvokePropertyChanged(nameof(Department));
+            OnPropertyChanged(nameof(Department));
         }
     }
 
@@ -141,7 +141,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _patronymicError = value;
-            InvokePropertyChanged(nameof(Department));
+            OnPropertyChanged(nameof(Department));
         }
     }
 
@@ -151,7 +151,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _genderError = value;
-            InvokePropertyChanged(nameof(Department));
+            OnPropertyChanged(nameof(Department));
         }
     }
 
@@ -161,7 +161,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _statusError = value;
-            InvokePropertyChanged(nameof(Department));
+            OnPropertyChanged(nameof(Department));
         }
     }
 
@@ -171,7 +171,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _militaryRegistrationError = value;
-            InvokePropertyChanged(nameof(Department));
+            OnPropertyChanged(nameof(Department));
         }
     }
 
@@ -181,7 +181,7 @@ public class AddWorkerViewModel : ViewModelBase
         set
         {
             _departmentError = value;
-            InvokePropertyChanged(nameof(Department));
+            OnPropertyChanged(nameof(Department));
         }
     }
     

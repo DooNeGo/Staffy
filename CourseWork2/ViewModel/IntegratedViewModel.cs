@@ -7,7 +7,7 @@ using Timer = System.Timers.Timer;
 
 namespace CourseWork2.ViewModel;
 
-public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelBase
+public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelBase, IDisposable 
     where TRepository : RepositoryBase<TDataModel>, new()
     where TDataModel : IDataModel, new()
 {
@@ -36,7 +36,7 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         set
         {
             _searchText = value;
-            InvokePropertyChanged(nameof(SearchText));
+            OnPropertyChanged(nameof(SearchText));
             _timer.Interval = 500;
             _timer.Start();
         }
@@ -48,7 +48,7 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         set
         {
             _selectedItem = value;
-            InvokePropertyChanged(nameof(SelectedItem));
+            OnPropertyChanged(nameof(SelectedItem));
         }
     }
 
@@ -58,7 +58,7 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         set
         {
             _items = value;
-            InvokePropertyChanged(nameof(Items));
+            OnPropertyChanged(nameof(Items));
         }
     }
 
@@ -93,5 +93,11 @@ public class IntegratedViewModel<TRepository, TDataModel> : IntegratedViewModelB
         {
             _repository.RemoveAsync(SelectedItem.Id);
         }
+    }
+
+    public void Dispose()
+    {
+        _timer.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
