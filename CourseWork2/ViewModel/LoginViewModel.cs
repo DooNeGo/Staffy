@@ -97,9 +97,9 @@ public class LoginViewModel : ViewModelBase
                 LoginSuccess?.Invoke(result);
             }
         }
-        catch
+        catch (Exception ex)
         {
-            ErrorMessage = "Connection Error";
+            ErrorMessage = ex.Message;
         }
     }
 
